@@ -8,13 +8,7 @@
 
 class Application
 {
-
-	private:
-
-		void createDirectories() const;
-		void createMainFile() const;
-		void createMakeFile(const std::vector<std::string> & sources) const;
-
+	
 	public:
 
 		std::string request() const;
@@ -25,4 +19,3 @@ class Application
 		void buildCommand() const;
 		void makeCommand() const;
 };
-
