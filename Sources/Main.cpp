@@ -1,8 +1,14 @@
 #include "../Headers/Application.h"
 
-int main()
+int main(int argc, char * argv[])
 {
-	Application application;
-	application.start();
+	MakeLoader::Application application;
+
+	if(argc > 1)
+	{
+		std::string command = argv[1];
+		application.execute(command);
+	}
+
 	return 0;
 }

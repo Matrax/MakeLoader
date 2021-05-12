@@ -1,47 +1,57 @@
 #include "../Headers/Application.h"
 
-void Application::start() const
+MakeLoader::Application::Application()
 {
-	while (true)
+	this->m_commands["create"] = MakeLoader::Commands::CREATE;
+	this->m_commands["build"] = MakeLoader::Commands::BUILD;
+	this->m_commands["make"] = MakeLoader::Commands::MAKE;
+}
+
+MakeLoader::Application::~Application() {}
+
+void MakeLoader::Application::execute(std::string command)
+{
+	MakeLoader::Commands value = this->m_commands[command];
+	switch (value)
 	{
-		std::string command = this->request();
-		if (command == "create") this->createCommand(); // create: cr�er le projet
-		if (command == "build") this->buildCommand(); // build: construit le makefile
-		if (command == "make") this->makeCommand(); // build: construit le makefile
-		if (command == "quit") break; // quit: Quitte le programme
+		case MakeLoader::Commands::CREATE:
+			this->cmd_create();
+			break;
+		case MakeLoader::Commands::BUILD:
+			this->cmd_build();
+			break;
+		case MakeLoader::Commands::MAKE:
+			this->cmd_make();
+			break;
+		default:
+			std::cout << "[MakeLoader] No commands found !" << std::endl;
+			break;
 	}
-	std::cout << "[MakeLoader] Terminated" << std::endl;
 }
 
-std::string Application::request() const
+void MakeLoader::Application::cmd_create()
 {
-	std::string command;
-	std::cout << "[MakeLoader] > ";
-	std::cin >> command;
-	return command;
-}
-
-void Application::createCommand() const
-{
-	std::cout << "[MakeLoader] Creating the project" << std::endl;
+	std::cout << "[MakeLoader] Creating the project ..." << std::endl;
 	std::filesystem::create_directory("Sources");
 	std::filesystem::create_directory("Headers");
 	std::filesystem::create_directory("Binaries");
 	std::cout << "[MakeLoader] Project created !" << std::endl;
 }
 
-void Application::buildCommand() const
+void MakeLoader::Application::cmd_build()
 {
 	std::cout << "[MakeLoader] Building the project" << std::endl;
-	//todo
+	this->m_makefile.open();
+	this->m_makefile.build();
+	this->m_makefile.save();
+	this->m_makefile.close();
 	std::cout << "[MakeLoader] Project builded !" << std::endl;
 }
 
-void Application::makeCommand() const
+void MakeLoader::Application::cmd_make()
 {
+	std::cout << "[MakeLoader] Compiling the project ..." << std::endl;
 	int result = std::system("make all");
-	if(result != 0)
-	{
-		std::cout << "Error to do the make command !" << std::endl;
-	}
+	if(result != 0) std::cout << "[Error] make" << std::endl;
+	std::cout << "[MakeLoader] Project compiled !" << std::endl;
 }

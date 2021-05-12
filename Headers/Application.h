@@ -1,21 +1,33 @@
 #pragma once
 
+#include <filesystem>
 #include <iostream>
 #include <string>
 #include <vector>
-#include <fstream>
-#include <filesystem>
+#include <map>
 
-class Application
+#include "Command.h"
+#include "Makefile.h"
+
+namespace MakeLoader
 {
-	
-	public:
+	class Application
+	{
 
-		std::string request() const;
-		std::vector<std::string> getAllSources() const;
+		private:
 
-		void start() const;
-		void createCommand() const;
-		void buildCommand() const;
-		void makeCommand() const;
+			MakeLoader::Makefile m_makefile;
+			std::map<std::string, MakeLoader::Commands> m_commands;
+
+		
+		public:
+
+			Application();
+			~Application();
+
+			void execute(std::string command);
+			void cmd_create();
+			void cmd_build();
+			void cmd_make();
+	};
 };
