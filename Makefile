@@ -1,18 +1,19 @@
 COMPILER=g++
-FLAGS=-Wall
+OUTPUT=Builds/Application
 VERSION=--std=c++17
 LIBS=
+FLAGS=-Wall
 
 all: Application
 
 Application: Binaries/Application.o Binaries/Main.o Binaries/Makefile.o
-	$(COMPILER) Binaries/Makefile.o Binaries/Application.o Binaries/Main.o $(LIBS) -o Builds/Application
+	$(COMPILER) Binaries/Application.o  Binaries/Main.o  Binaries/Makefile.o $(LIBS) -o $(OUTPUT)
 
-Binaries/Application.o: Sources/Application.cpp
+Binaries/Application.o : Sources/Application.cpp
 	$(COMPILER) -c Sources/Application.cpp $(VERSION) $(FLAGS) -o Binaries/Application.o
 
-Binaries/Makefile.o: Sources/Makefile.cpp
-	$(COMPILER) -c Sources/Makefile.cpp $(VERSION) $(FLAGS) -o Binaries/Makefile.o
-	
-Binaries/Main.o: Sources/Main.cpp
+Binaries/Main.o : Sources/Main.cpp
 	$(COMPILER) -c Sources/Main.cpp $(VERSION) $(FLAGS) -o Binaries/Main.o
+
+Binaries/Makefile.o : Sources/Makefile.cpp
+	$(COMPILER) -c Sources/Makefile.cpp $(VERSION) $(FLAGS) -o Binaries/Makefile.o

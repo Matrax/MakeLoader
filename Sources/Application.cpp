@@ -9,7 +9,7 @@ MakeLoader::Application::Application()
 
 MakeLoader::Application::~Application() {}
 
-void MakeLoader::Application::execute(std::string command)
+void MakeLoader::Application::execute(std::string & command, std::vector<std::string> & arguments)
 {
 	MakeLoader::Commands value = this->m_commands[command];
 	switch (value)
@@ -18,7 +18,7 @@ void MakeLoader::Application::execute(std::string command)
 			this->cmd_create();
 			break;
 		case MakeLoader::Commands::BUILD:
-			this->cmd_build();
+			this->cmd_build(arguments[0]);
 			break;
 		case MakeLoader::Commands::MAKE:
 			this->cmd_make();
@@ -34,15 +34,16 @@ void MakeLoader::Application::cmd_create()
 	std::cout << "[MakeLoader] Creating the project ..." << std::endl;
 	std::filesystem::create_directory("Sources");
 	std::filesystem::create_directory("Headers");
+	std::filesystem::create_directory("Builds");
 	std::filesystem::create_directory("Binaries");
 	std::cout << "[MakeLoader] Project created !" << std::endl;
 }
 
-void MakeLoader::Application::cmd_build()
+void MakeLoader::Application::cmd_build(std::string & main)
 {
 	std::cout << "[MakeLoader] Building the project" << std::endl;
 	this->m_makefile.open();
-	this->m_makefile.build();
+	this->m_makefile.build(main);
 	this->m_makefile.save();
 	this->m_makefile.close();
 	std::cout << "[MakeLoader] Project builded !" << std::endl;

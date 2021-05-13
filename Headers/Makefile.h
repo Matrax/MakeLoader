@@ -29,11 +29,15 @@ namespace MakeLoader
 
             void open();
             void save();
-            void build();
+            void build(std::string & main);
             void close();
 
             void createVariable(std::string name, std::string value);
-            void createVariable(std::string name, std::vector<std::string> values);
+            void createVariable(std::string name, std::vector<std::string> & values);
+            void createMainSource(std::vector<std::string> & sources);
+            void createSource(std::string name);
+
+            std::vector<std::string> getSources();
 
     };
 };

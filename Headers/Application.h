@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <map>
+#include <unordered_map>
 
 #include "Command.h"
 #include "Makefile.h"
@@ -17,17 +17,16 @@ namespace MakeLoader
 		private:
 
 			MakeLoader::Makefile m_makefile;
-			std::map<std::string, MakeLoader::Commands> m_commands;
-
+			std::unordered_map<std::string, MakeLoader::Commands> m_commands;
 		
 		public:
 
 			Application();
 			~Application();
 
-			void execute(std::string command);
+			void execute(std::string & command, std::vector<std::string> & arguments);
 			void cmd_create();
-			void cmd_build();
+			void cmd_build(std::string & main);
 			void cmd_make();
 	};
 };
