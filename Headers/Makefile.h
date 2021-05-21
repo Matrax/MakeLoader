@@ -32,6 +32,7 @@ namespace MakeLoader
             void build(std::string & main);
             void close();
 
+            void createCommand(std::string name, std::string value);
             void createVariable(std::string name, std::string value);
             void createVariable(std::string name, std::vector<std::string> & values);
             void createMainSource(std::vector<std::string> & sources);
