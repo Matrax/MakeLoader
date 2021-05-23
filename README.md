@@ -1,4 +1,4 @@
-# MakeLoader (WORK IN PROGRESS)
+# MakeLoader BETA-1.0 (WORK IN PROGRESS)
 
 ## Description
 

@@ -1,5 +1,5 @@
 COMPILER=g++
-OUTPUT=Builds/Application
+OUTPUT=Builds/makeloader
 VERSION=--std=c++17
 LIBS=
 FLAGS=-Wall
