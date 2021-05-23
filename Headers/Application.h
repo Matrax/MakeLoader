@@ -17,16 +17,24 @@ namespace MakeLoader
 		private:
 
 			MakeLoader::Makefile m_makefile;
+			
 			std::unordered_map<std::string, MakeLoader::Commands> m_commands;
 		
 		public:
 
+			//Constructors and destructor
 			Application();
 			~Application();
 
-			void execute(std::string & command, std::vector<std::string> & arguments);
+			//Static function
+			static void createDirectory(const std::string name);
+
+			//Methods
+			void execute(const std::string & command, const std::vector<std::string> & arguments);
+
+			//Commands
 			void cmd_create();
-			void cmd_build(std::string & main);
+			void cmd_build();
 			void cmd_make();
 	};
 };

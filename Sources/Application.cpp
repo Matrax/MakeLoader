@@ -7,9 +7,23 @@ MakeLoader::Application::Application()
 	this->m_commands["make"] = MakeLoader::Commands::MAKE;
 }
 
-MakeLoader::Application::~Application() {}
+MakeLoader::Application::~Application() 
+{
+	this->m_commands.clear();
+}
 
-void MakeLoader::Application::execute(std::string & command, std::vector<std::string> & arguments)
+void MakeLoader::Application::createDirectory(const std::string name)
+{
+	if(std::filesystem::exists(name) == false)
+	{
+		std::filesystem::create_directory(name);
+		std::cout << "[MakeLoader] The directory " << name << " is now created !" << std::endl;
+	} else { 
+		std::cout << "[MakeLoader] The directory " << name << " already exist !" << std::endl;
+	}
+}
+
+void MakeLoader::Application::execute(const std::string & command, const std::vector<std::string> & arguments)
 {
 	MakeLoader::Commands value = this->m_commands[command];
 	switch (value)
@@ -18,7 +32,7 @@ void MakeLoader::Application::execute(std::string & command, std::vector<std::st
 			this->cmd_create();
 			break;
 		case MakeLoader::Commands::BUILD:
-			this->cmd_build(arguments[0]);
+			this->cmd_build();
 			break;
 		case MakeLoader::Commands::MAKE:
 			this->cmd_make();
@@ -32,18 +46,18 @@ void MakeLoader::Application::execute(std::string & command, std::vector<std::st
 void MakeLoader::Application::cmd_create()
 {
 	std::cout << "[MakeLoader] Creating the project ..." << std::endl;
-	std::filesystem::create_directory("Sources");
-	std::filesystem::create_directory("Headers");
-	std::filesystem::create_directory("Builds");
-	std::filesystem::create_directory("Binaries");
+	this->createDirectory("Sources");
+	this->createDirectory("Headers");
+	this->createDirectory("Builds");
+	this->createDirectory("Binaries");
 	std::cout << "[MakeLoader] Project created !" << std::endl;
 }
 
-void MakeLoader::Application::cmd_build(std::string & main)
+void MakeLoader::Application::cmd_build()
 {
 	std::cout << "[MakeLoader] Building the project" << std::endl;
 	this->m_makefile.open();
-	this->m_makefile.build(main);
+	this->m_makefile.build();
 	this->m_makefile.save();
 	this->m_makefile.close();
 	std::cout << "[MakeLoader] Project builded !" << std::endl;
