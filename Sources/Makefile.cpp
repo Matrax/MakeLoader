@@ -10,7 +10,6 @@ MakeLoader::Makefile::~Makefile()
 void MakeLoader::Makefile::build()
 {
     std::vector<std::string> sources = this->getSources();
-
     this->createVariable("COMPILER", this->m_compiler);
     this->createVariable("VERSION", this->m_version);
     this->createVariable("OUTPUT", this->m_output);

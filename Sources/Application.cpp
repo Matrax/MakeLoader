@@ -9,7 +9,27 @@ MakeLoader::Application::Application()
 
 MakeLoader::Application::~Application() 
 {
+	this->m_makefile.close();
 	this->m_commands.clear();
+	this->m_arguments.clear();
+}
+
+void MakeLoader::Application::start(const int & argc, char * argv[])
+{
+	if(argc > 1)
+	{
+		this->m_command = std::string(argv[1]);
+		for(int i = 2; i < argc; i++) 
+		{
+			std::string arg = std::string(argv[i]);
+			this->m_arguments.push_back(arg);
+		}
+		this->execute(this->m_command, this->m_arguments);
+	} else {
+		std::cout << "\n[MakeLoader] Version " << MAKELOADER_VERSION_MAJOR << "." << MAKELOADER_VERSION_MINOR << std::endl;
+		std::cout << "[MakeLoader] Commands available : {create, build, make}" << std::endl;
+		std::cout << "[MakeLoader] More informations at https://github.com/Matrax/MakeLoader" << std::endl;
+	}
 }
 
 void MakeLoader::Application::createDirectory(const std::string name)
@@ -67,6 +87,12 @@ void MakeLoader::Application::cmd_make()
 {
 	std::cout << "[MakeLoader] Compiling the project ..." << std::endl;
 	int result = std::system("make all");
-	if(result != 0) std::cout << "[Error] make" << std::endl;
-	std::cout << "[MakeLoader] Project compiled !" << std::endl;
+
+	if(result != 0) 
+	{
+		std::cout << "[Error] can't execute the make commands, maybe make is not installed !" << std::endl;
+	} else {
+		std::cout << "[MakeLoader] Project compiled !" << std::endl;
+	}
+	
 }
