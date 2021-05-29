@@ -1,98 +1,58 @@
-#include "../Headers/Application.h"
+#include "../Headers/Application.hpp"
 
-MakeLoader::Application::Application()
+std::shared_ptr<Application> Application::instance = nullptr;
+
+Application::Application() : m_commands(std::vector<Command *>()), m_makefile(std::shared_ptr<Makefile>(nullptr))
 {
-	this->m_commands["create"] = MakeLoader::Commands::CREATE;
-	this->m_commands["build"] = MakeLoader::Commands::BUILD;
-	this->m_commands["make"] = MakeLoader::Commands::MAKE;
+	this->m_commands.push_back(new CreateCommand());
+	this->m_commands.push_back(new BuildCommand());
+	this->m_commands.push_back(new MakeCommand());
+	this->m_commands.push_back(new InfoCommand());
+	Application::instance = std::shared_ptr<Application>(this);
 }
 
-MakeLoader::Application::~Application() 
+Application::~Application() 
 {
-	this->m_makefile.close();
-	this->m_commands.clear();
-	this->m_arguments.clear();
-}
-
-void MakeLoader::Application::start(const int & argc, char * argv[])
-{
-	if(argc > 1)
+	for(unsigned int i = 0; i < this->m_commands.size(); i++)
 	{
-		this->m_command = std::string(argv[1]);
-		for(int i = 2; i < argc; i++) 
+		if(this->m_commands[i] != nullptr)
 		{
-			std::string arg = std::string(argv[i]);
-			this->m_arguments.push_back(arg);
+			delete this->m_commands[i];
+			this->m_commands[i] = nullptr;
 		}
-		this->execute(this->m_command, this->m_arguments);
-	} else {
-		std::cout << "\n[MakeLoader] Version " << MAKELOADER_VERSION_MAJOR << "." << MAKELOADER_VERSION_MINOR << std::endl;
-		std::cout << "[MakeLoader] Commands available : {create, build, make}" << std::endl;
-		std::cout << "[MakeLoader] More informations at https://github.com/Matrax/MakeLoader" << std::endl;
 	}
 }
 
-void MakeLoader::Application::createDirectory(const std::string name)
+std::shared_ptr<Application> Application::getInstance()
 {
-	if(std::filesystem::exists(name) == false)
+	return Application::instance;
+}
+
+void Application::start(const int & argc, char * argv[])
+{
+	if(argc <= 1) 
 	{
-		std::filesystem::create_directory(name);
-		std::cout << "[MakeLoader] The directory " << name << " is now created !" << std::endl;
-	} else { 
-		std::cout << "[MakeLoader] The directory " << name << " already exist !" << std::endl;
+		std::cout << "\n[MakeLoader] No command entered !" << std::endl;
+		return;
 	}
-}
 
-void MakeLoader::Application::execute(const std::string & command, const std::vector<std::string> & arguments)
-{
-	MakeLoader::Commands value = this->m_commands[command];
-	switch (value)
+	this->m_makefile = std::shared_ptr<Makefile>(new Makefile());
+	for(unsigned int i = 0; i < this->m_commands.size(); i++)
 	{
-		case MakeLoader::Commands::CREATE:
-			this->cmd_create();
+		if(this->m_commands[i]->getName() == argv[1])
+		{
+			this->m_commands[i]->execute();
 			break;
-		case MakeLoader::Commands::BUILD:
-			this->cmd_build();
-			break;
-		case MakeLoader::Commands::MAKE:
-			this->cmd_make();
-			break;
-		default:
-			std::cout << "[MakeLoader] No commands found !" << std::endl;
-			break;
+		}
 	}
 }
 
-void MakeLoader::Application::cmd_create()
+std::vector<Command *> Application::getCommands() const
 {
-	std::cout << "[MakeLoader] Creating the project ..." << std::endl;
-	this->createDirectory("Sources");
-	this->createDirectory("Headers");
-	this->createDirectory("Builds");
-	this->createDirectory("Binaries");
-	std::cout << "[MakeLoader] Project created !" << std::endl;
+	return this->m_commands;
 }
 
-void MakeLoader::Application::cmd_build()
+std::shared_ptr<Makefile> Application::getMakefile() const
 {
-	std::cout << "[MakeLoader] Building the project" << std::endl;
-	this->m_makefile.open();
-	this->m_makefile.build();
-	this->m_makefile.save();
-	this->m_makefile.close();
-	std::cout << "[MakeLoader] Project builded !" << std::endl;
-}
-
-void MakeLoader::Application::cmd_make()
-{
-	std::cout << "[MakeLoader] Compiling the project ..." << std::endl;
-	int result = std::system("make all");
-
-	if(result != 0) 
-	{
-		std::cout << "[Error] can't execute the make commands, maybe make is not installed !" << std::endl;
-	} else {
-		std::cout << "[MakeLoader] Project compiled !" << std::endl;
-	}
-	
+	return this->m_makefile;
 }

@@ -1,8 +1,8 @@
-#include "../Headers/Application.h"
+#include "../Headers/Application.hpp"
 
 int main(int argc, char * argv[])
 {
-	MakeLoader::Application application;
+	Application application;
 	application.start(argc, argv);
 	return 0;
 }

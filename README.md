@@ -1,4 +1,9 @@
-# MakeLoader BETA-1.0 (WORK IN PROGRESS)
+# MakeLoader 1.0
+
+## Installation
+
+Just clone the repository, and after do the "make" command.
+You will find the executable in the Builds folder.
 
 ## Description
 
@@ -14,7 +19,15 @@ Sources : Folder that contains all your sources files (.c, .cpp ...). <br/>
 ## Available commands
 
 create -> Generate all the folders of your project
-<br/><br/>
+<br/>
 build -> Generate the makefile of your project using all the sources in the Sources folder.
-<br/><br/>
+<br/>
 make -> Just call the make commands to compile your program.
+<br/>
+info -> Give informations about MakeLoader.
+
+## TODO
+
+* Optimizations and stability
+* Find recursivly source in the Sources folder.
+* Documentations

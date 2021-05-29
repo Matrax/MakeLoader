@@ -1,49 +1,8 @@
-#include "../Headers/Makefile.h"
+#include "../Headers/Makefile.hpp"
 
-MakeLoader::Makefile::Makefile() : m_compiler("g++"), m_version("--std=c++17"), m_output("Application"), m_content("") {}
+Makefile::Makefile() : m_compiler("g++"), m_version("--std=c++17"), m_output("Application"), m_content("") {}
 
-MakeLoader::Makefile::~Makefile()
-{
-    this->close();
-}
-
-void MakeLoader::Makefile::build()
-{
-    std::vector<std::string> sources = this->getSources();
-    this->createVariable("COMPILER", this->m_compiler);
-    this->createVariable("VERSION", this->m_version);
-    this->createVariable("OUTPUT", this->m_output);
-    this->createVariable("LIBS", "");
-    this->createVariable("FLAGS", "-Wall");
-    this->createCommand("all", "Application");
-    this->createMainSource(sources);
-
-    for(unsigned int i = 0; i < sources.size(); i++)
-    {
-        this->createSource(sources[i]);
-    }
-}
-
-void MakeLoader::Makefile::open()
-{
-    if(this->m_file.is_open() == false)
-    {
-        this->m_file.open("Makefile");
-    }
-}
-
-void MakeLoader::Makefile::save()
-{
-    if(this->m_file.is_open())
-    {
-        this->m_file << this->m_content;
-        this->m_file.flush();
-    } else {
-        std::cout << "Error on saving the Makefile" << std::endl;
-    }
-}
-
-void MakeLoader::Makefile::close()
+Makefile::~Makefile()
 {
     if(this->m_file.is_open() == true)
     {
@@ -52,7 +11,53 @@ void MakeLoader::Makefile::close()
     }
 }
 
-void MakeLoader::Makefile::createMainSource(const std::vector<std::string> & sources)
+void Makefile::build()
+{
+    std::vector<std::string> sources = this->getSources();
+
+    if(sources.size() > 0)
+    {
+        this->createVariable("COMPILER", this->m_compiler);
+        this->createVariable("VERSION", this->m_version);
+        this->createVariable("OUTPUT", this->m_output);
+        this->createVariable("LIBS", "");
+        this->createVariable("FLAGS", "-Wall");
+        this->createCommand("all", "Application");
+        this->createMainSource(sources);
+
+        for(unsigned int i = 0; i < sources.size(); i++)
+        {
+            this->createSource(sources[i]);
+            std::cout << "[MakeLoader] " << sources[i] << " added to the makefile." << std::endl;
+        }
+
+    } else {
+        std::cout << "[MakeLoader] You have no sources to build !" << std::endl;
+    }
+}
+
+void Makefile::open()
+{
+    if(this->m_file.is_open() == false)
+    {
+        this->m_file.open("Makefile");
+    } else {
+        std::cout << "[MakeLoader] Can't open the Makefile" << std::endl;
+    }
+}
+
+void Makefile::save()
+{
+    if(this->m_file.is_open() == true)
+    {
+        this->m_file << this->m_content;
+        this->m_file.flush();
+    } else {
+        std::cout << "[MakeLoader] Can't save the Makefile" << std::endl;
+    }
+}
+
+void Makefile::createMainSource(const std::vector<std::string> & sources)
 {
     this->m_content.append("\n");
     this->m_content.append("Application:");
@@ -77,7 +82,7 @@ void MakeLoader::Makefile::createMainSource(const std::vector<std::string> & sou
     this->m_content.append("$(LIBS) -o Builds/$(OUTPUT)");
 }
 
-void MakeLoader::Makefile::createCommand(const std::string name, const std::string value)
+void Makefile::createCommand(const std::string name, const std::string value)
 {
     this->m_content.append("\n");
     this->m_content.append(name);
@@ -86,7 +91,7 @@ void MakeLoader::Makefile::createCommand(const std::string name, const std::stri
     this->m_content.append("\n");
 }
 
-void MakeLoader::Makefile::createSource(const std::string name)
+void Makefile::createSource(const std::string name)
 {
     this->m_content.append("\nBinaries/");
     this->m_content.append(name);
@@ -100,7 +105,7 @@ void MakeLoader::Makefile::createSource(const std::string name)
     this->m_content.append(".o\n");
 }
 
-void MakeLoader::Makefile::createVariable(const std::string name, const std::string value)
+void Makefile::createVariable(const std::string name, const std::string value)
 {
     this->m_content.append(name);
     this->m_content.append("=");
@@ -108,7 +113,7 @@ void MakeLoader::Makefile::createVariable(const std::string name, const std::str
     this->m_content.append("\n");
 }
 
-std::vector<std::string> MakeLoader::Makefile::getSources() const
+std::vector<std::string> Makefile::getSources() const
 {
     std::vector<std::string> sources;
     if(std::filesystem::exists("Sources"))
