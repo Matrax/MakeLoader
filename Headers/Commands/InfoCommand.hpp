@@ -1,8 +1,5 @@
 #pragma once
 
-#define MAKELOADER_VERSION_MAJOR 1
-#define MAKELOADER_VERSION_MINOR 0
-
 #include <iostream>
 #include <vector>
 #include <string>
@@ -14,8 +11,13 @@ class InfoCommand : public Command
 
     public:
 
+        //Constructors and destructor
         InfoCommand();
+        InfoCommand(const InfoCommand &) = delete;
         virtual ~InfoCommand();
+
+        //Operators
+		InfoCommand & operator=(const InfoCommand &) = delete;
 
         void execute() override;
 };

@@ -1,4 +1,4 @@
-#include "../Headers/BuildCommand.hpp"
+#include "../../Headers/Commands/BuildCommand.hpp"
 
 BuildCommand::BuildCommand() : Command("build", "test") {}
 

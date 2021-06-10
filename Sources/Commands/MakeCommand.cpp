@@ -1,4 +1,4 @@
-#include "../Headers/MakeCommand.hpp"
+#include "../../Headers/Commands/MakeCommand.hpp"
 
 MakeCommand::MakeCommand() : Command("make", "test") {}
 

@@ -1,4 +1,4 @@
-#include "../Headers/Application.hpp"
+#include "../../Headers/Core/Application.hpp"
 
 std::shared_ptr<Application> Application::instance = nullptr;
 

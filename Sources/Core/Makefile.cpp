@@ -1,6 +1,6 @@
-#include "../Headers/Makefile.hpp"
+#include "../../Headers/Core/Makefile.hpp"
 
-Makefile::Makefile() : m_compiler("g++"), m_version("--std=c++17"), m_output("Application"), m_content("") {}
+Makefile::Makefile() : m_file(std::ofstream()), m_content("") {}
 
 Makefile::~Makefile()
 {
@@ -17,11 +17,11 @@ void Makefile::build()
 
     if(sources.size() > 0)
     {
-        this->createVariable("COMPILER", this->m_compiler);
-        this->createVariable("VERSION", this->m_version);
-        this->createVariable("OUTPUT", this->m_output);
-        this->createVariable("LIBS", "");
+        this->createVariable("COMPILER", "g++");
+        this->createVariable("VERSION", "--std=c++17");
+        this->createVariable("OUTPUT", "YourApplication");
         this->createVariable("FLAGS", "-Wall");
+        this->createVariable("LIBS", "");
         this->createCommand("all", "Application");
         this->createMainSource(sources);
 
@@ -42,7 +42,7 @@ void Makefile::open()
     {
         this->m_file.open("Makefile");
     } else {
-        std::cout << "[MakeLoader] Can't open the Makefile" << std::endl;
+        std::cout << "[MakeLoader] Can't open the Makefile !" << std::endl;
     }
 }
 
@@ -50,10 +50,10 @@ void Makefile::save()
 {
     if(this->m_file.is_open() == true)
     {
-        this->m_file << this->m_content;
+        this->m_file << this->m_content << std::endl;
         this->m_file.flush();
     } else {
-        std::cout << "[MakeLoader] Can't save the Makefile" << std::endl;
+        std::cout << "[MakeLoader] Can't save the Makefile !" << std::endl;
     }
 }
 
@@ -116,6 +116,7 @@ void Makefile::createVariable(const std::string name, const std::string value)
 std::vector<std::string> Makefile::getSources() const
 {
     std::vector<std::string> sources;
+
     if(std::filesystem::exists("Sources"))
     {
         std::filesystem::directory_iterator directory_iterator("Sources");
@@ -125,6 +126,9 @@ std::vector<std::string> Makefile::getSources() const
             std::string filenameNoExtension = filename.replace_extension("").string();
             sources.push_back(filenameNoExtension);
         }
+    } else {
+        std::cout << "[MakeLoader] You have no \"Sources\" directory in your project !" << std::endl;
     }
+
     return sources;
 }
