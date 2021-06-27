@@ -1,11 +1,20 @@
 #pragma once
 
+//Std includes
 #include <iostream>
 #include <vector>
 #include <string>
 
+//Makeloader includes
 #include "Command.hpp"
 
+/**
+ * This class represent the "info" command of the application.
+ * This command write on the console some of informations about MakeLoader.
+ * @brief This class represent the "info" command of the application.
+ * @author Matrax
+ * @version 1.0
+ */
 class InfoCommand : public Command
 {
 
@@ -14,10 +23,11 @@ class InfoCommand : public Command
         //Constructors and destructor
         InfoCommand();
         InfoCommand(const InfoCommand &) = delete;
-        virtual ~InfoCommand();
+        ~InfoCommand();
 
         //Operators
 		InfoCommand & operator=(const InfoCommand &) = delete;
 
+        //Overrided methods
         void execute() override;
 };

@@ -28,6 +28,12 @@ std::shared_ptr<Application> Application::getInstance()
 	return Application::instance;
 }
 
+/**
+ *
+ * 
+ * When the user enter a command, the application check all the command that exist 
+ * in the application and execute the method "execute" of the command.
+ */
 void Application::start(const int & argc, char * argv[])
 {
 	if(argc <= 1) 

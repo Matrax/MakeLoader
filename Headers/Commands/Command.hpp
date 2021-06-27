@@ -1,7 +1,16 @@
 #pragma once
 
+//Std includes
 #include <string>
 
+/**
+ * This class is an abstract class that represent a command for the application.
+ * Every child of this class must reimplement the execute pure virtual method.
+ * Every command have a name and a description.
+ * @brief This class is an abstract class that represent a command for the application.
+ * @author Matrax
+ * @version 1.0
+ */
 class Command
 {
     private:
