@@ -1,4 +1,4 @@
-#include "../Headers/Application.hpp"
+#include "../Headers/Core/Application.hpp"
 
 /**
 * Main entry of the MakeLoader program.

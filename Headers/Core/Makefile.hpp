@@ -37,8 +37,8 @@ class Makefile
         void save();
         void createCommand(const std::string name, const std::string value);
         void createVariable(const std::string name, const std::string value);
-        void createMainSource(const std::vector<std::string> & sources);
-        void createSource(const std::string name);
+        void createExecutable(const std::vector<std::string> & sources);
+        void createTarget(const std::string name);
         std::vector<std::string> getSources() const;
 
 };

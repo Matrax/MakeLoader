@@ -1,5 +1,5 @@
 COMPILER=g++
-VERSION=--std=c++17
+VERSION=-std=c++17
 OUTPUT=makeloader
 LIBS=
 FLAGS=-Wall
@@ -24,11 +24,11 @@ Binaries/CreateCommand.o : Sources/Commands/CreateCommand.cpp
 Binaries/InfoCommand.o : Sources/Commands/InfoCommand.cpp
 	$(COMPILER) -c Sources/Commands/InfoCommand.cpp $(VERSION) $(FLAGS) -o Binaries/InfoCommand.o
 
+Binaries/MakeCommand.o : Sources/Commands/MakeCommand.cpp
+	$(COMPILER) -c Sources/Commands/MakeCommand.cpp $(VERSION) $(FLAGS) -o Binaries/MakeCommand.o
+
 Binaries/Main.o : Sources/Main.cpp
 	$(COMPILER) -c Sources/Main.cpp $(VERSION) $(FLAGS) -o Binaries/Main.o
-
-Binaries/MakeCommand.o : Sources/Commands/MakeCommand.cpp
-	$(COMPILER) -c Sources/MakeCommand.cpp $(VERSION) $(FLAGS) -o Binaries/MakeCommand.o
 
 Binaries/Makefile.o : Sources/Core/Makefile.cpp
 	$(COMPILER) -c Sources/Core/Makefile.cpp $(VERSION) $(FLAGS) -o Binaries/Makefile.o

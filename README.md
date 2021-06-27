@@ -34,6 +34,5 @@ info -> Give informations about MakeLoader.
 
 ## TODO
 
-* Optimizations and stability
 * Find recursivly source in the Sources folder.
 * Documentations

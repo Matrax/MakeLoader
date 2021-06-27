@@ -18,16 +18,16 @@ void Makefile::build()
     if(sources.size() > 0)
     {
         this->createVariable("COMPILER", "g++");
-        this->createVariable("VERSION", "--std=c++17");
+        this->createVariable("VERSION", "-std=c++17");
         this->createVariable("OUTPUT", "YourApplication");
         this->createVariable("FLAGS", "-Wall");
         this->createVariable("LIBS", "");
         this->createCommand("all", "Application");
-        this->createMainSource(sources);
+        this->createExecutable(sources);
 
         for(unsigned int i = 0; i < sources.size(); i++)
         {
-            this->createSource(sources[i]);
+            this->createTarget(sources[i]);
             std::cout << "[MakeLoader] " << sources[i] << " added to the makefile." << std::endl;
         }
 
@@ -57,11 +57,11 @@ void Makefile::save()
     }
 }
 
-void Makefile::createMainSource(const std::vector<std::string> & sources)
+void Makefile::createExecutable(const std::vector<std::string> & sources)
 {
     this->m_content.append("\n");
     this->m_content.append("Application:");
-
+    
     for(unsigned int i = 0; i < sources.size(); i++)
     {
         this->m_content.append(" Binaries/");
@@ -91,7 +91,7 @@ void Makefile::createCommand(const std::string name, const std::string value)
     this->m_content.append("\n");
 }
 
-void Makefile::createSource(const std::string name)
+void Makefile::createTarget(const std::string name)
 {
     this->m_content.append("\nBinaries/");
     this->m_content.append(name);

@@ -15,6 +15,7 @@ class Command
         //Constructors and destructor
         Command() = delete;
         Command(const std::string name, const std::string description);
+        Command(const Command &) = delete;
         virtual ~Command();
 
         //Virtual methods
