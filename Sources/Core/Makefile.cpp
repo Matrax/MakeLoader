@@ -1,6 +1,14 @@
 #include "../../Headers/Core/Makefile.hpp"
 
-Makefile::Makefile() : m_file(std::ofstream()), m_content("") {}
+Makefile::Makefile()
+{
+    this->createVariable("COMPILER", "g++");
+    this->createVariable("VERSION", "-std=c++17");
+    this->createVariable("OUTPUT", "YourApplication");
+    this->createVariable("FLAGS", "-Wall");
+    this->createVariable("LIBS", "");
+    this->createCommand("all", "Application");
+}
 
 Makefile::~Makefile()
 {
@@ -17,14 +25,7 @@ void Makefile::build()
 
     if(sources.size() > 0)
     {
-        this->createVariable("COMPILER", "g++");
-        this->createVariable("VERSION", "-std=c++17");
-        this->createVariable("OUTPUT", "YourApplication");
-        this->createVariable("FLAGS", "-Wall");
-        this->createVariable("LIBS", "");
-        this->createCommand("all", "Application");
         this->createExecutable(sources);
-
         for(unsigned int i = 0; i < sources.size(); i++)
         {
             this->createTarget(sources[i]);

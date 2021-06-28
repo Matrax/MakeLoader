@@ -1,14 +1,14 @@
 #include "../../Headers/Core/Application.hpp"
 
-std::shared_ptr<Application> Application::instance = nullptr;
+std::shared_ptr<Application> Application::instance = std::shared_ptr<Application>(nullptr);
 
-Application::Application() : m_commands(std::vector<Command *>()), m_makefile(std::shared_ptr<Makefile>(nullptr))
+Application::Application() : m_commands(std::vector<Command *>(4)), m_makefile(std::shared_ptr<Makefile>(nullptr))
 {
 	this->m_commands.push_back(new CreateCommand());
 	this->m_commands.push_back(new BuildCommand());
 	this->m_commands.push_back(new MakeCommand());
 	this->m_commands.push_back(new InfoCommand());
-	Application::instance = std::shared_ptr<Application>(this);
+	Application::instance.reset(this);
 }
 
 Application::~Application() 
