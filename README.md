@@ -10,6 +10,8 @@ and commands used by "make" with the makefile.
 Configure your compiler version and other things in the makeloader.txt,
 program your application using the "Sources" and "Headers" file, and generate 
 the makefile using MakeLoader.
+<br/>
+MakeLoader find recursively your sources files in the "Sources" directory.
 
 ## Installation
 Just clone the repository, and after use "make" to generate the executable of MakeLoader

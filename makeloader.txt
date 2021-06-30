@@ -1,6 +1,6 @@
 COMPILER=g++
 VERSION=-std=c++17
-OUTPUT=makeloader.exe
+OUTPUT=makeloader
 FLAGS=-Wall
 LIBS=
 
