@@ -1,15 +1,20 @@
 #include "../../Headers/Commands/BuildCommand.hpp"
 
-BuildCommand::BuildCommand() : Command("build", "test") {}
+BuildCommand::BuildCommand() : Command("build", "This command build your makefile using the \"Sources\" directory") {}
 
 BuildCommand::~BuildCommand() {}
 
 void BuildCommand::execute() 
 {
-	std::cout << "\n[MakeLoader] Building the makefile ..." << std::endl;
-	std::shared_ptr<Makefile> makefile = Application::getInstance()->getMakefile();
-	makefile->open();
-	makefile->build();
-	makefile->save();
-	std::cout << "[MakeLoader] Makefile builded !" << std::endl;
+	if(File::exist("makeloader.txt") == true)
+	{
+		std::cout << "\n[MakeLoader] Building the makefile ..." << std::endl;
+		std::string header = Application::getInstance()->getLoaderfile()->getContent();
+		Application::getInstance()->getMakefile()->addContent(header);
+		Application::getInstance()->getMakefile()->remove();
+		Application::getInstance()->getMakefile()->build();
+		std::cout << "[MakeLoader] Makefile builded !" << std::endl;
+	} else {
+		std::cout << "[MakeLoader] You don't have a makeloader file in your project !" << std::endl;
+	}
 }

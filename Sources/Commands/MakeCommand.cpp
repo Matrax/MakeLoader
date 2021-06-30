@@ -1,6 +1,6 @@
 #include "../../Headers/Commands/MakeCommand.hpp"
 
-MakeCommand::MakeCommand() : Command("make", "test") {}
+MakeCommand::MakeCommand() : Command("make", "This command just call the \"make\" program to compile your project") {}
 
 MakeCommand::~MakeCommand() {}
 

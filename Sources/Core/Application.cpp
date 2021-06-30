@@ -1,64 +1,54 @@
 #include "../../Headers/Core/Application.hpp"
 
-std::shared_ptr<Application> Application::instance = std::shared_ptr<Application>(nullptr);
+std::unique_ptr<Application> Application::instance = std::unique_ptr<Application>(nullptr);
 
-Application::Application() : m_commands(std::vector<Command *>(4)), m_makefile(std::shared_ptr<Makefile>(nullptr))
+Application::Application() : 
+	m_commands(std::vector<std::unique_ptr<Command>>()), 
+	m_loaderfile(std::make_unique<LoaderFile>()),
+	m_makefile(std::make_unique<MakeFile>())
 {
-	this->m_commands.push_back(new CreateCommand());
-	this->m_commands.push_back(new BuildCommand());
-	this->m_commands.push_back(new MakeCommand());
-	this->m_commands.push_back(new InfoCommand());
+	this->m_commands.push_back(std::make_unique<CreateCommand>());
+	this->m_commands.push_back(std::make_unique<BuildCommand>());
+	this->m_commands.push_back(std::make_unique<MakeCommand>());
+	this->m_commands.push_back(std::make_unique<InfoCommand>());
 	Application::instance.reset(this);
 }
 
-Application::~Application() 
-{
-	for(unsigned int i = 0; i < this->m_commands.size(); i++)
-	{
-		if(this->m_commands[i] != nullptr)
-		{
-			delete this->m_commands[i];
-			this->m_commands[i] = nullptr;
-		}
-	}
-}
+Application::~Application() {}
 
-std::shared_ptr<Application> Application::getInstance()
+std::unique_ptr<Application> & Application::getInstance()
 {
 	return Application::instance;
 }
 
-/**
- *
- * 
- * When the user enter a command, the application check all the command that exist 
- * in the application and execute the method "execute" of the command.
- */
 void Application::start(const int & argc, char * argv[])
 {
-	if(argc <= 1) 
+	if(argc > 1) 
 	{
-		std::cout << "\n[MakeLoader] No command entered !" << std::endl;
-		return;
-	}
-
-	this->m_makefile = std::shared_ptr<Makefile>(new Makefile());
-	for(unsigned int i = 0; i < this->m_commands.size(); i++)
-	{
-		if(this->m_commands[i]->getName() == argv[1])
+		for(unsigned int i = 0; i < this->m_commands.size(); i++)
 		{
-			this->m_commands[i]->execute();
-			break;
+			if(this->m_commands[i]->getName() == argv[1])
+			{
+				this->m_commands[i]->execute();
+				break;
+			}
 		}
+	} else {
+		std::cout << "\n[MakeLoader] No command entered !" << std::endl;
 	}
 }
 
-std::vector<Command *> Application::getCommands() const
+std::vector<std::unique_ptr<Command>> & Application::getCommands()
 {
 	return this->m_commands;
 }
 
-std::shared_ptr<Makefile> Application::getMakefile() const
+std::unique_ptr<MakeFile> & Application::getMakefile()
 {
 	return this->m_makefile;
+}
+
+std::unique_ptr<LoaderFile> & Application::getLoaderfile()
+{
+	return this->m_loaderfile;
 }

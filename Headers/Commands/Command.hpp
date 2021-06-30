@@ -6,7 +6,7 @@
 /**
  * This class is an abstract class that represent a command for the application.
  * Every child of this class must reimplement the execute pure virtual method.
- * Every command have a name and a description.
+ * Every command must have a name and a description.
  * @brief This class is an abstract class that represent a command for the application.
  * @author Matrax
  * @version 1.0
@@ -26,6 +26,9 @@ class Command
         Command(const std::string name, const std::string description);
         Command(const Command &) = delete;
         virtual ~Command();
+
+        //Operators
+        Command & operator=(const Command &) = delete;
 
         //Virtual methods
         virtual void execute() = 0;

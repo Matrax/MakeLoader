@@ -1,6 +1,6 @@
 #include "../../Headers/Commands/InfoCommand.hpp"
 
-InfoCommand::InfoCommand() : Command("info", "test") {}
+InfoCommand::InfoCommand() : Command("info", "This command show you in the console all informations about MakeLoader") {}
 
 InfoCommand::~InfoCommand() {}
 

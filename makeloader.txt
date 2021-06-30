@@ -1,0 +1,7 @@
+COMPILER=g++
+VERSION=-std=c++17
+OUTPUT=makeloader.exe
+FLAGS=-Wall
+LIBS=
+
+all: Application

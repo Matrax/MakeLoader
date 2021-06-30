@@ -7,12 +7,14 @@
 
 //Makeloader includes
 #include "../Core/Application.hpp"
-#include "../Core/Makefile.hpp"
+#include "../Files/MakeFile.hpp"
+#include "../Files/LoaderFile.hpp"
 #include "Command.hpp"
 
 /**
  * This class represent the "build" command of the application.
- * This command build the makefile of the project where the commmand is executed.
+ * This command build the makefile of the project where the commmand is executed
+ * using the Makeloader.txt for add variable to the makefile.
  * @brief This class represent the "build" command of the application.
  * @author Matrax
  * @version 1.0
