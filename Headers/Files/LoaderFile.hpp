@@ -23,7 +23,7 @@ class LoaderFile : public File
 
         //Methods
         void create();
-        void createCommand(const std::string name, const std::string value);
         void createVariable(const std::string name, const std::string value);
+        void createCommand(const std::string name, const std::string requirement, const std::string command);
 
 };

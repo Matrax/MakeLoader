@@ -1,13 +1,28 @@
+#================Global variables===============
+
 COMPILER=g++
 VERSION=-std=c++17
-OUTPUT=makeloader.exe
-FLAGS=-Wall
+OUTPUT=makeloader
+FLAGS=-Wall -Wextra -Wold-style-cast
 LIBS=
 
+#================Commands===============
+
+
 all: Application
+	
+
+clean: 
+	rm Builds/$(OUTPUT)
+
+#================Linker===============
+
 
 Application: Objects/BuildCommand.o Objects/Command.o Objects/CreateCommand.o Objects/InfoCommand.o Objects/MakeCommand.o Objects/Application.o Objects/File.o Objects/LoaderFile.o Objects/MakeFile.o Objects/Main.o
 	$(COMPILER) Objects/BuildCommand.o Objects/Command.o Objects/CreateCommand.o Objects/InfoCommand.o Objects/MakeCommand.o Objects/Application.o Objects/File.o Objects/LoaderFile.o Objects/MakeFile.o Objects/Main.o $(LIBS) -o Builds/$(OUTPUT)
+
+#================Compiler===============
+
 
 Objects/BuildCommand.o : Sources/Commands/BuildCommand.cpp
 	$(COMPILER) -c Sources/Commands/BuildCommand.cpp $(VERSION) $(FLAGS) -o Objects/BuildCommand.o

@@ -1,7 +1,17 @@
+#================Global variables===============
+
 COMPILER=g++
 VERSION=-std=c++17
 OUTPUT=makeloader
-FLAGS=-Wall
+FLAGS=-Wall -Wextra -Wold-style-cast
 LIBS=
 
+#================Commands===============
+
+
 all: Application
+	
+
+clean: 
+	rm Builds/$(OUTPUT)
+
