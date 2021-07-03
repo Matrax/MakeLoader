@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <memory>
+#include <stdexcept>
 
 //Makeloader includes
 #include "../Files/MakeFile.hpp"
@@ -46,11 +47,11 @@ class Application
 		Application & operator=(const Application &) = delete;
 
 		//Static functions
-		static std::unique_ptr<Application> & getInstance();
+		static Application * getInstance();
 
 		//Methods
 		void start(const int & argc, char * argv[]);
 		std::vector<std::unique_ptr<Command>> & getCommands();
-		std::unique_ptr<MakeFile> & getMakefile();
-		std::unique_ptr<LoaderFile> & getLoaderfile();
+		MakeFile * getMakefile();
+		LoaderFile * getLoaderfile();
 };

@@ -39,7 +39,7 @@ void MakeFile::createExecutable(std::vector<std::filesystem::path> sources)
     }
 
     this->addContent("\n");
-    this->addContent("\t$(COMPILER)");
+    this->addContent("\t$(COMPILER) $(COMPILER_FLAGS)");
     for(std::vector<std::filesystem::path>::iterator path = sources.begin(); path != sources.end(); path++)
     {
         path->replace_extension("");

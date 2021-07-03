@@ -6,6 +6,12 @@
 #include <string>
 #include <fstream>
 
+/**
+* This class represent a file.
+* It was developped to have an easier creation of file with the MakeLoader application.
+* @author Matrax
+* @version 1.0
+**/
 class File 
 {
 

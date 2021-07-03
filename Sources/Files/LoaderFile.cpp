@@ -8,6 +8,7 @@ void LoaderFile::create()
 {
     this->addContent("#================Global variables===============\n\n");
     this->createVariable("COMPILER", "g++");
+    this->createVariable("COMPILER_FLAGS", "-O");
     this->createVariable("VERSION", "-std=c++17");
     this->createVariable("OUTPUT", "YourApplication");
     this->createVariable("FLAGS", "-Wall -Wextra -Wold-style-cast");
@@ -24,8 +25,11 @@ void LoaderFile::createCommand(const std::string name, const std::string require
     this->addContent(name);
     this->addContent(": ");
     this->addContent(requirement);
-    this->addContent("\n\t");
-    this->addContent(command);
+    if(command != "")
+    {
+        this->addContent("\n\t");
+        this->addContent(command);
+    }
     this->addContent("\n");
 }
 
