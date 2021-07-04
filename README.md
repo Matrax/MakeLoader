@@ -3,20 +3,20 @@
 ## Description
 MakeLoader is a program that generate all your C/C++ project folders and your makefile 
 using all the sources files of your project using GCC or G++.
-<br/>
+<br/><br/>
 MakeLoader will generate with a command the makeloader.txt file that contains all variables 
 and commands used by "make" with the makefile.
-<br/>
+<br/><br/>
 Configure your compiler version and other things in the makeloader.txt,
 program your application using the "Sources" and "Headers" file, and generate 
 the makefile using MakeLoader.
-<br/>
+<br/><br/>
 MakeLoader find recursively your sources files in the "Sources" directory.
 
 ## Installation
 Just clone the repository, and after use "make" to generate the executable of MakeLoader
 in the "Builds" folder.
-<br/>
+<br/><br/>
 You can execute MakeLoader using the executable.
 Start a command line were you have the executable (ctrl + alt + T on linux or cmd in the search bar on windows)
 and then do the command : makeloader {command here} or ./makeloader {command here}.
@@ -31,9 +31,9 @@ Sources : Folder that contains all your sources files (.c, .cpp ...).<br/>
 ## Available commands
 create -> Generate all the folders of your project and the makeloader.txt
 <br/>
-build -> Generate the makefile of your project using all the sources in the Sources folder.
+build -> Generate a makefile for your project using all the sources in the Sources folder and add the content of the makeloader.txt file in this new makefile.
 <br/>
-make -> Just call the make commands to compile your program.
+make -> Call the "make" program to compile your project.
 <br/>
 info -> Give informations about MakeLoader.
 

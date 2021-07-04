@@ -11,8 +11,8 @@ void MakeCommand::execute()
 
 	if(result != 0) 
 	{
-		std::cout << "[MakeLoader] Can't execute the make commands, maybe make is not installed !" << std::endl;
+		std::cout << "[MakeLoader] Can't execute the make commands, maybe make is not installed !\n" << std::endl;
 	} else {
-		std::cout << "[MakeLoader] Project compiled !" << std::endl;
+		std::cout << "[MakeLoader] Project compiled !\n" << std::endl;
 	}
 }

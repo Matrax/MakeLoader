@@ -17,9 +17,9 @@ void CreateCommand::execute()
 	{
 		std::cout << "[MakeLoader] Creating the Makeloader file ..." << std::endl;
 		Application::getInstance()->getLoaderfile()->create();
-		std::cout << "[MakeLoader] Makeloader file created !" << std::endl;
+		std::cout << "[MakeLoader] Makeloader file created !\n" << std::endl;
 	} else {
-		std::cout << "[MakeLoader] You already have a Makeloader file in your project !" << std::endl;
+		std::cout << "[MakeLoader] You already have a Makeloader file in your project !\n" << std::endl;
 	}
 
 }

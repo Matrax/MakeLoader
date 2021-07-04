@@ -11,7 +11,7 @@ void MakeFile::build()
     {
         this->addContent("#================Linker===============\n\n");
         this->createExecutable(sources);
-        
+
         this->addContent("#================Compiler===============\n\n");
         for(std::vector<std::filesystem::path>::iterator path = sources.begin(); path != sources.end(); path++)
         {
@@ -28,8 +28,7 @@ void MakeFile::build()
 
 void MakeFile::createExecutable(std::vector<std::filesystem::path> sources)
 {
-    this->addContent("\n");
-    this->addContent("Application:");
+    this->addContent("\nApplication:");
     for(std::vector<std::filesystem::path>::iterator path = sources.begin(); path != sources.end(); path++)
     {
         path->replace_extension("");
@@ -38,8 +37,7 @@ void MakeFile::createExecutable(std::vector<std::filesystem::path> sources)
         this->addContent(".o");
     }
 
-    this->addContent("\n");
-    this->addContent("\t$(COMPILER) $(COMPILER_FLAGS)");
+    this->addContent("\n\t$(COMPILER) $(COMPILER_FLAGS)");
     for(std::vector<std::filesystem::path>::iterator path = sources.begin(); path != sources.end(); path++)
     {
         path->replace_extension("");
@@ -78,8 +76,7 @@ std::vector<std::filesystem::path> MakeFile::getSources(const std::string direct
             if(file.is_directory() == true)
             {
                 std::vector<std::filesystem::path> childSources = this->getSources(path.string());
-                std::vector<std::filesystem::path>::iterator it;
-                for(it = childSources.begin(); it != childSources.end(); it++)
+                for(std::vector<std::filesystem::path>::iterator it = childSources.begin(); it != childSources.end(); it++)
                 {
                     sources.push_back(*it);
                 }
