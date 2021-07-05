@@ -32,7 +32,7 @@ class Application
 		static std::unique_ptr<Application> instance;
 
 		//Attributes
-		std::vector<std::unique_ptr<Command>> m_commands;
+		std::vector<std::shared_ptr<Command>> m_commands;
 		std::unique_ptr<LoaderFile> m_loaderfile;
 		std::unique_ptr<MakeFile> m_makefile;
 		
@@ -51,7 +51,7 @@ class Application
 
 		//Methods
 		void start(const int & argc, char * argv[]);
-		std::vector<std::unique_ptr<Command>> & getCommands();
+		std::vector<std::shared_ptr<Command>> & getCommands();
 		MakeFile * getMakefile();
 		LoaderFile * getLoaderfile();
 };

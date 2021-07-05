@@ -4,9 +4,11 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <memory>
 
 //Makeloader includes
 #include "Command.hpp"
+#include "../Core/Application.hpp"
 
 /**
  * This class represent the "info" command of the application.

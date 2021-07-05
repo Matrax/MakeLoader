@@ -3,14 +3,14 @@
 std::unique_ptr<Application> Application::instance = std::unique_ptr<Application>(nullptr);
 
 Application::Application() : 
-	m_commands(std::vector<std::unique_ptr<Command>>()), 
+	m_commands(std::vector<std::shared_ptr<Command>>()), 
 	m_loaderfile(std::make_unique<LoaderFile>()),
 	m_makefile(std::make_unique<MakeFile>())
 {
-	this->m_commands.push_back(std::make_unique<CreateCommand>());
-	this->m_commands.push_back(std::make_unique<BuildCommand>());
-	this->m_commands.push_back(std::make_unique<MakeCommand>());
-	this->m_commands.push_back(std::make_unique<InfoCommand>());
+	this->m_commands.push_back(std::make_shared<CreateCommand>());
+	this->m_commands.push_back(std::make_shared<BuildCommand>());
+	this->m_commands.push_back(std::make_shared<MakeCommand>());
+	this->m_commands.push_back(std::make_shared<InfoCommand>());
 	Application::instance.reset(this);
 }
 
@@ -28,7 +28,8 @@ void Application::start(const int & argc, char * argv[])
 {
 	if(argc <= 1) 
 	{
-		std::cout << "\n[MakeLoader] No command entered !\n" << std::endl;
+		std::cout << "\n[MakeLoader] You need to put an argument !" << std::endl;
+		std::cout << "[MakeLoader] type: makeloader info\n" << std::endl;
 		return;
 	}
 
@@ -42,7 +43,7 @@ void Application::start(const int & argc, char * argv[])
 	}
 }
 
-std::vector<std::unique_ptr<Command>> & Application::getCommands()
+std::vector<std::shared_ptr<Command>> & Application::getCommands()
 {
 	return this->m_commands;
 }
