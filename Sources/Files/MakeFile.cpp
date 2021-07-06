@@ -67,21 +67,13 @@ std::vector<std::filesystem::path> MakeFile::getSources(const std::string direct
 {
     std::vector<std::filesystem::path> sources;
 
-    if(std::filesystem::exists(directory))
+    if(File::exist(directory) == true)
     {
-        std::filesystem::directory_iterator directory_iterator(directory);
-        for (std::filesystem::directory_entry file : directory_iterator)
+        for (std::filesystem::directory_entry file : std::filesystem::recursive_directory_iterator(directory))
         {
-            std::filesystem::path path = file.path();
-            if(file.is_directory() == true)
+            if(file.is_directory() == false)
             {
-                std::vector<std::filesystem::path> childSources = this->getSources(path.string());
-                for(std::vector<std::filesystem::path>::iterator it = childSources.begin(); it != childSources.end(); it++)
-                {
-                    sources.push_back(*it);
-                }
-            } else {
-                sources.push_back(path);
+                sources.push_back(file.path());
             }
         }
     } else {

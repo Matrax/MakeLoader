@@ -24,7 +24,7 @@ File::~File()
 
 void File::createDirectory(const std::string name)
 {
-	if(std::filesystem::exists(name) == false)
+	if(File::exist(name) == false)
 	{
 		std::filesystem::create_directory(name);
 		std::cout << "[MakeLoader] The directory " << name << " is now created." << std::endl;
