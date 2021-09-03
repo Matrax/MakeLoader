@@ -6,6 +6,8 @@ LoaderFile::~LoaderFile() {}
 
 void LoaderFile::create()
 {
+    this->addContent("#This is the configuration file of MakeLoader.\n");
+    this->addContent("#All these variables will be paste in the makefile.\n");
     this->addContent("#================Global variables===============\n\n");
     this->createVariable("COMPILER", "g++");
     this->createVariable("COMPILER_FLAGS", "-O");

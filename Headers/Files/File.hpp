@@ -8,7 +8,8 @@
 
 /**
 * This class represent a file.
-* It was developped to have an easier creation of file with the MakeLoader application.
+* It was developped to have an easier management of files 
+* with the MakeLoader application.
 * @author Matrax
 * @version 1.0
 **/
@@ -17,6 +18,7 @@ class File
 
     private:
 
+        //Attributes
         const std::string m_path;
         std::fstream m_file;
         std::string m_content;
