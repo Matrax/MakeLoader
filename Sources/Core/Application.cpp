@@ -66,9 +66,9 @@ void Application::start(const int & argc, char * argv[])
 
 	for(std::vector<std::shared_ptr<Command>>::iterator command = this->m_commands.begin(); command != this->m_commands.end(); command++)
 	{
-		if(command->getName() == argv[1])
+		if(command->get()->getName() == argv[1])
 		{
-			command->execute();
+			command->get()->execute();
 			break;
 		}
 	}

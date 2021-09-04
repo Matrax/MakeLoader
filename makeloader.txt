@@ -1,13 +1,16 @@
+#This is the configuration file of MakeLoader.
+#All these variables will be paste in the makefile.
 #================Global variables===============
 
 COMPILER=g++
-COMPILER_FLAGS=-O2
 VERSION=-std=c++17
 OUTPUT=makeloader
-FLAGS=-Wall -Wextra -Wold-style-cast
+LINKER_FLAGS=-O2
+COMPILER_FLAGS=-Wall -Wextra -Wold-style-cast
 LIBS=
 
 #================Commands===============
+
 
 all: Application
 
