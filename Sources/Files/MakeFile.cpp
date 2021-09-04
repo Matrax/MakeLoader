@@ -34,7 +34,7 @@ void MakeFile::createExecutable(std::vector<std::filesystem::path> sources)
         this->addContent(path->filename().string());
         this->addContent(".o");
     }
-    this->addContent("\n\t$(COMPILER) $(COMPILER_FLAGS)");
+    this->addContent("\n\t$(COMPILER) $(LINKER_FLAGS)");
     for(std::vector<std::filesystem::path>::iterator path = sources.begin(); path != sources.end(); path++)
     {
         path->replace_extension("");
@@ -54,7 +54,7 @@ void MakeFile::createTarget(const std::string path, const std::string objectFile
     this->addContent(".cpp");
     this->addContent("\n\t$(COMPILER) -c ");
     this->addContent(path);
-    this->addContent(".cpp $(VERSION) $(FLAGS) -o Objects/");
+    this->addContent(".cpp $(VERSION) $(COMPILER_FLAGS) -o Objects/");
     this->addContent(objectFile);
     this->addContent(".o\n");
 }

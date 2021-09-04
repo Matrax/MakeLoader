@@ -10,10 +10,10 @@ void LoaderFile::create()
     this->addContent("#All these variables will be paste in the makefile.\n");
     this->addContent("#================Global variables===============\n\n");
     this->createVariable("COMPILER", "g++");
-    this->createVariable("COMPILER_FLAGS", "-O");
     this->createVariable("VERSION", "-std=c++17");
     this->createVariable("OUTPUT", "YourApplication");
-    this->createVariable("FLAGS", "-Wall -Wextra -Wold-style-cast");
+    this->createVariable("LINKER_FLAGS", "-O");
+    this->createVariable("COMPILER_FLAGS", "-Wall -Wextra -Wold-style-cast");
     this->createVariable("LIBS", "");
     this->addContent("\n#================Commands===============\n\n");
     this->createCommand("all", "Application", "");
