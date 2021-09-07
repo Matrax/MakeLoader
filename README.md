@@ -15,8 +15,9 @@ MakeLoader find recursively your sources files in the "Sources" directory.
 
 ## Installation
 - Clone the repository.
-- Use "make" to generate the executable of make in the Builds folder.
+- Use "make" to generate the executable of MakeLoader in the Builds folder.
 - Now you can execute MakeLoader in CLI using the executable.
+- Type "makeloader info" to have the list of commands available.
 
 ## Project folders
 Folders | Uses
