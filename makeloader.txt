@@ -16,4 +16,3 @@ all: Application
 
 clean: 
 	rm Builds/$(OUTPUT)
-

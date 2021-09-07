@@ -9,7 +9,6 @@ void BuildCommand::execute()
 	if(File::exist("makeloader.txt") == true)
 	{
 		std::string header = Application::getInstance()->getLoaderfile()->getContent();
-
 		std::cout << "\n[MakeLoader] Building the makefile ..." << std::endl;
 		Application::getInstance()->getMakefile()->addContent(header);
 		Application::getInstance()->getMakefile()->remove();
