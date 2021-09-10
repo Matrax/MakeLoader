@@ -9,7 +9,8 @@
 /**
 * This class represent a file.
 * It was developped to have an easier management of files 
-* with the MakeLoader application.
+* with the MakeLoader application. Every File classes need to
+* redefine the methods generate.
 * @author Matrax
 * @version 1.0
 **/
@@ -33,6 +34,9 @@ class File
         //Static functions
         static bool exist(const std::string path);
         static void createDirectory(const std::string name);
+
+        //Virtual methods
+        virtual void generate() = 0;
 
         //Methods
         void remove();

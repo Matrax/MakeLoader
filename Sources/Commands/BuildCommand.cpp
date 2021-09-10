@@ -12,7 +12,7 @@ void BuildCommand::execute()
 		std::cout << "\n[MakeLoader] Building the makefile ..." << std::endl;
 		Application::getInstance()->getMakefile()->addContent(header);
 		Application::getInstance()->getMakefile()->remove();
-		Application::getInstance()->getMakefile()->build();
+		Application::getInstance()->getMakefile()->generate();
 		std::cout << "[MakeLoader] Makefile builded !\n" << std::endl;
 	} else {
 		std::cout << "[MakeLoader] You don't have a makeloader file in your project !\n" << std::endl;

@@ -1,7 +1,7 @@
 #include "../../Headers/Files/File.hpp"
 
 /**
-* Constructor of the class File.
+* Constructor of the abstract class File.
 * @param std::string path The path of the file.
 * @param bool loadContent If the file need to be loaded from the disk in the constructor.
 * @author Matrax

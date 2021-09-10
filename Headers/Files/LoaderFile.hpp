@@ -21,8 +21,10 @@ class LoaderFile : public File
         LoaderFile();
         ~LoaderFile();
 
+        //Overrided methods
+        void generate() override;
+
         //Methods
-        void create();
         void createVariable(const std::string name, const std::string value);
         void createCommand(const std::string name, const std::string requirement, const std::string command);
 

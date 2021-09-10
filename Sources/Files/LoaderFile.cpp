@@ -4,10 +4,13 @@ LoaderFile::LoaderFile() : File("makeloader.txt", true) {}
 
 LoaderFile::~LoaderFile() {}
 
-void LoaderFile::create()
+/**
+* This method generate the content of the file.
+* @author Matrax
+* @version 1.0
+*/
+void LoaderFile::generate()
 {
-    this->addContent("#This is the configuration file of MakeLoader.\n");
-    this->addContent("#All these variables will be paste in the makefile.\n");
     this->addContent("#================Global variables===============\n\n");
     this->createVariable("COMPILER", "g++");
     this->createVariable("VERSION", "-std=c++17");
