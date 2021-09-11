@@ -4,7 +4,7 @@
 MakeLoader is a program that generate all your C/C++ project folders and your makefile 
 using all the sources files of your project that use GCC or G++.
 <br/><br/>
-MakeLoader will generate with the "create" command the makeloader.txt file that contains all variables 
+MakeLoader will generate with the "create" command the makeloader file that contains all variables 
 and commands used by Make to generate the makefile.
 <br/><br/>
 Configure your compiler and other options in the makeloader.txt,

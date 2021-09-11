@@ -9,7 +9,6 @@ LIBS=
 
 #================Commands===============
 
-
 all: Application
 
 clean: 
@@ -17,12 +16,10 @@ clean:
 
 #================Linker===============
 
-
 Application: Objects/BuildCommand.o Objects/Command.o Objects/CreateCommand.o Objects/InfoCommand.o Objects/MakeCommand.o Objects/Application.o Objects/File.o Objects/LoaderFile.o Objects/MakeFile.o Objects/Main.o
 	$(COMPILER) $(LINKER_FLAGS) Objects/BuildCommand.o Objects/Command.o Objects/CreateCommand.o Objects/InfoCommand.o Objects/MakeCommand.o Objects/Application.o Objects/File.o Objects/LoaderFile.o Objects/MakeFile.o Objects/Main.o $(LIBS) -o Builds/$(OUTPUT)
 
 #================Compiler===============
-
 
 Objects/BuildCommand.o : Sources/Commands/BuildCommand.cpp
 	$(COMPILER) -c Sources/Commands/BuildCommand.cpp $(VERSION) $(COMPILER_FLAGS) -o Objects/BuildCommand.o

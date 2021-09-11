@@ -13,7 +13,7 @@ void CreateCommand::execute()
 	File::createDirectory("Objects");
 	std::cout << "[MakeLoader] Project folders created !" << std::endl;
 
-	if(File::exist("Makeloader.txt") == false)
+	if(File::exist("makeloader") == false)
 	{
 		std::cout << "[MakeLoader] Creating the Makeloader file ..." << std::endl;
 		Application::getInstance()->getLoaderfile()->generate();

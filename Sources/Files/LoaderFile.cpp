@@ -1,6 +1,6 @@
 #include "../../Headers/Files/LoaderFile.hpp"
 
-LoaderFile::LoaderFile() : File("makeloader.txt", true) {}
+LoaderFile::LoaderFile() : File("makeloader", true) {}
 
 LoaderFile::~LoaderFile() {}
 
