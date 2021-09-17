@@ -1,8 +1,10 @@
 #================Global variables===============
 
 COMPILER=g++
+ARCHIVER=ar
 VERSION=-std=c++17
-OUTPUT=makeloader
+COMPILER_OUTPUT=makeloader
+ARCHIVER_OUTPUT=
 LINKER_FLAGS=-O2
 COMPILER_FLAGS=-Wall -Wextra -Wold-style-cast
 LIBS=
@@ -11,17 +13,23 @@ LIBS=
 
 all: Application
 
+app: Application
+
+static-lib: StaticLibrary
+
 clean: 
 	rm Builds/$(OUTPUT)
 
 #================Linker===============
 
-
 Application: Objects/BuildCommand.o Objects/Command.o Objects/CreateCommand.o Objects/InfoCommand.o Objects/MakeCommand.o Objects/Application.o Objects/File.o Objects/LoaderFile.o Objects/MakeFile.o Objects/Main.o
-	$(COMPILER) $(LINKER_FLAGS) Objects/BuildCommand.o Objects/Command.o Objects/CreateCommand.o Objects/InfoCommand.o Objects/MakeCommand.o Objects/Application.o Objects/File.o Objects/LoaderFile.o Objects/MakeFile.o Objects/Main.o $(LIBS) -o Builds/$(OUTPUT)
+	$(COMPILER) $(LINKER_FLAGS) Objects/BuildCommand.o Objects/Command.o Objects/CreateCommand.o Objects/InfoCommand.o Objects/MakeCommand.o Objects/Application.o Objects/File.o Objects/LoaderFile.o Objects/MakeFile.o Objects/Main.o $(LIBS) -o Builds/$(COMPILER_OUTPUT)
+
+
+StaticLibrary: Objects/BuildCommand.o Objects/Command.o Objects/CreateCommand.o Objects/InfoCommand.o Objects/MakeCommand.o Objects/Application.o Objects/File.o Objects/LoaderFile.o Objects/MakeFile.o Objects/Main.o
+	$(ARCHIVER) rcs Builds/$(ARCHIVER_OUTPUT) Objects/BuildCommand.o Objects/Command.o Objects/CreateCommand.o Objects/InfoCommand.o Objects/MakeCommand.o Objects/Application.o Objects/File.o Objects/LoaderFile.o Objects/MakeFile.o Objects/Main.o
 
 #================Compiler===============
-
 
 Objects/BuildCommand.o : Sources/Commands/BuildCommand.cpp
 	$(COMPILER) -c Sources/Commands/BuildCommand.cpp $(VERSION) $(COMPILER_FLAGS) -o Objects/BuildCommand.o

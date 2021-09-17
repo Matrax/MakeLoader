@@ -1,15 +1,22 @@
 #================Global variables===============
 
 COMPILER=g++
+ARCHIVER=ar
 VERSION=-std=c++17
-OUTPUT=makeloader
+COMPILER_OUTPUT=makeloader
+ARCHIVER_OUTPUT=
 LINKER_FLAGS=-O2
 COMPILER_FLAGS=-Wall -Wextra -Wold-style-cast
 LIBS=
 
 #================Commands===============
 
+
 all: Application
+
+app: Application
+
+static-lib: StaticLibrary
 
 clean: 
 	rm Builds/$(OUTPUT)

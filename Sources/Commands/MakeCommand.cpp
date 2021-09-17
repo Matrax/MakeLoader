@@ -10,9 +10,10 @@ void MakeCommand::execute()
 	int result = std::system("make all");
 	
 	if(result != 0) 
-		throw std::runtime_error("Error on execute \"Make\" !");
+	{
+		result = std::system("mingw32-make all");
+		if(result != 0) throw std::runtime_error("Error on execute \"Make\" !");
+	}
 
 	std::cout << "[MakeLoader] Project compiled !\n" << std::endl;
-
-	
 }

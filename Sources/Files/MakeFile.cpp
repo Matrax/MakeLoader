@@ -27,6 +27,7 @@ void MakeFile::generate()
     {
         this->addContent("#================Linker===============\n\n");
         this->createExecutable(sources);
+        this->createStaticLibrary(sources);
         this->addContent("#================Compiler===============\n\n");
         for(std::vector<std::filesystem::path>::iterator path = sources.begin(); path != sources.end(); path++)
         {
@@ -41,7 +42,36 @@ void MakeFile::generate()
 }
 
 /**
-* This method add in the makefile the command line for the executable.
+* This method add in the makefile the command line for the static library creation.
+* @param std::vector<std::filesystem::path> sources The list of sources files in the project.
+* @author Matrax
+* @version 1.0
+*/
+void MakeFile::createStaticLibrary(std::vector<std::filesystem::path> sources)
+{
+    this->addContent("\nStaticLibrary:");
+    for(std::vector<std::filesystem::path>::iterator path = sources.begin(); path != sources.end(); path++)
+    {
+        path->replace_extension("");
+        this->addContent(" Objects/");
+        this->addContent(path->filename().string());
+        this->addContent(".o");
+    }
+
+    this->addContent("\n\t$(ARCHIVER) rcs Builds/$(ARCHIVER_OUTPUT)");
+    for(std::vector<std::filesystem::path>::iterator path = sources.begin(); path != sources.end(); path++)
+    {
+        path->replace_extension("");
+        this->addContent(" Objects/");
+        this->addContent(path->filename().string());
+        this->addContent(".o");
+    }
+
+    this->addContent("\n\n");
+}
+
+/**
+* This method add in the makefile the command line for the executable creation.
 * @param std::vector<std::filesystem::path> sources The list of sources files in the project.
 * @author Matrax
 * @version 1.0
@@ -66,7 +96,7 @@ void MakeFile::createExecutable(std::vector<std::filesystem::path> sources)
         this->addContent(".o");
     }
     
-    this->addContent(" $(LIBS) -o Builds/$(OUTPUT)\n\n");
+    this->addContent(" $(LIBS) -o Builds/$(COMPILER_OUTPUT)\n\n");
 }
 
 /**

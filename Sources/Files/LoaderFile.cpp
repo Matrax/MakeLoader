@@ -13,13 +13,17 @@ void LoaderFile::generate()
 {
     this->addContent("#================Global variables===============\n\n");
     this->createVariable("COMPILER", "g++");
+    this->createVariable("ARCHIVER", "ar");
     this->createVariable("VERSION", "-std=c++17");
-    this->createVariable("OUTPUT", "YourApplication");
+    this->createVariable("COMPILER_OUTPUT", "application");
+    this->createVariable("ARCHIVER_OUTPUT", "libapplication.a");
     this->createVariable("LINKER_FLAGS", "-O");
     this->createVariable("COMPILER_FLAGS", "-Wall -Wextra -Wold-style-cast");
     this->createVariable("LIBS", "");
     this->addContent("\n#================Commands===============\n\n");
     this->createCommand("all", "Application", "");
+    this->createCommand("app", "Application", "");
+    this->createCommand("static-lib", "StaticLibrary", "");
     this->createCommand("clean", "", "rm Builds/$(OUTPUT)");
     this->save();
 }

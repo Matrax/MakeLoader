@@ -44,8 +44,11 @@ File::~File()
 */
 void File::createDirectory(const std::string name)
 {
-	std::filesystem::create_directory(name);
-	std::cout << "[MakeLoader] The directory " << name << " is created." << std::endl;
+    if(File::exist(name) == false)
+    {
+        std::filesystem::create_directory(name);
+        std::cout << "[MakeLoader] The directory " << name << " is created." << std::endl;
+    }
 }
 
 /**

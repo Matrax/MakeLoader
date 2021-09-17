@@ -25,6 +25,7 @@ class MakeFile : public File
         void generate() override;
 
         //Methods
+        void createStaticLibrary(std::vector<std::filesystem::path> sources);
         void createExecutable(std::vector<std::filesystem::path> sources);
         void createTarget(const std::string source, const std::string object);
         std::vector<std::filesystem::path> getSources(const std::string directory = "Sources") const;
