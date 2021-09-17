@@ -9,7 +9,7 @@ void MakeCommand::execute()
 	std::cout << "\n[MakeLoader] Compiling the project ..." << std::endl;
 	int result = std::system("make all");
 	
-	if(result == 0) 
+	if(result != 0) 
 		throw std::runtime_error("Error on execute \"Make\" !");
 
 	std::cout << "[MakeLoader] Project compiled !\n" << std::endl;
