@@ -22,7 +22,7 @@ Application::Application() :
 		this->m_commands.push_back(std::make_shared<InfoCommand>());
 		Application::instance.reset(this);
 	} else {
-		std::cout << "Can't reinstantiate the application !" << std::endl;
+		std::cerr << "Can't reinstantiate the application !" << std::endl;
 	}
 }
 
@@ -57,20 +57,47 @@ Application * Application::getInstance()
 */
 void Application::start(const int & argc, char * argv[])
 {
-	if(argv == nullptr || argc <= 1) 
-	{
-		std::cout << "\n[MakeLoader] You need to put an argument !" << std::endl;
-		std::cout << "[MakeLoader] type: makeloader info\n" << std::endl;
-		return;
-	}
+	if(argv == nullptr || argc <= 1)
+		throw std::runtime_error("There are no arguments in the command !");
 
-	for(std::vector<std::shared_ptr<Command>>::iterator command = this->m_commands.begin(); command != this->m_commands.end(); command++)
-	{
-		if(command->get()->getName() == argv[1])
+	if(this->m_commands.empty() == true)
+		throw std::runtime_error("There are no commands loaded !");
+
+	try {
+		for(std::vector<std::shared_ptr<Command>>::iterator command = this->m_commands.begin(); command != this->m_commands.end(); command++)
 		{
-			command->get()->execute();
-			break;
+			if(command->get()->getName() == argv[1])
+			{
+				command->get()->execute();
+				break;
+			}
 		}
+	} catch(const std::runtime_error & exception) {
+		std::cerr << "[MakeLoader] " << exception.what() << std::endl;
+	}
+}
+
+/**
+* This method show in the console all the informations about MakeLoader.
+* @author Matrax
+* @version 1.0
+*/
+void Application::informations()
+{
+	std::cout << "\nMakeLoader Copyright (C) 2021 Alexandre Pierret" << std::endl;
+	std::cout << "This program comes with ABSOLUTELY NO WARRANTY;" << std::endl;
+	std::cout << "This is free software, and you are welcome to redistribute it" << std::endl;
+	std::cout << "[MakeLoader] Version 1.0" << std::endl;
+	std::cout << "[MakeLoader] More informations at https://github.com/Matrax/MakeLoader\n" << std::endl;
+	std::cout << "Commands:" << std::endl;
+
+	if(this->m_commands.empty() == false)
+	{
+		for(std::vector<std::shared_ptr<Command>>::iterator command = this->m_commands.begin(); command != this->m_commands.end(); command++)
+		{
+			std::cout << "\t" << command->get()->getName() << ": " << command->get()->getDescription() << std::endl;
+		}
+		std::cout << std::endl;
 	}
 }
 
@@ -98,7 +125,7 @@ MakeFile * Application::getMakefile()
 
 /**
 * This method return the makeloader file used by MakeLoader.
-* @return MakeFile* the makeloader file used by MakeLoaderthe.
+* @return MakeFile* The makeloader file used by MakeLoader.
 * @author Matrax
 * @version 1.0
 */

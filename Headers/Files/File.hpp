@@ -5,9 +5,10 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <stdexcept>
 
 /**
-* This class represent a file.
+* This abstract class represent a file.
 * It was developped to have an easier management of files 
 * with the MakeLoader application. Every File classes need to
 * redefine the methods generate.
@@ -39,6 +40,7 @@ class File
         virtual void generate() = 0;
 
         //Methods
+        void regenerate();
         void remove();
         void save();
         void clear();

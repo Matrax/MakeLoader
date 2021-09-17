@@ -56,6 +56,7 @@ void MakeFile::createExecutable(std::vector<std::filesystem::path> sources)
         this->addContent(path->filename().string());
         this->addContent(".o");
     }
+
     this->addContent("\n\t$(COMPILER) $(LINKER_FLAGS)");
     for(std::vector<std::filesystem::path>::iterator path = sources.begin(); path != sources.end(); path++)
     {
@@ -64,6 +65,7 @@ void MakeFile::createExecutable(std::vector<std::filesystem::path> sources)
         this->addContent(path->filename().string());
         this->addContent(".o");
     }
+    
     this->addContent(" $(LIBS) -o Builds/$(OUTPUT)\n\n");
 }
 

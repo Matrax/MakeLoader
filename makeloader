@@ -3,12 +3,11 @@
 COMPILER=g++
 VERSION=-std=c++17
 OUTPUT=makeloader
-LINKER_FLAGS=-O
+LINKER_FLAGS=-O2
 COMPILER_FLAGS=-Wall -Wextra -Wold-style-cast
 LIBS=
 
 #================Commands===============
-
 
 all: Application
 

@@ -44,13 +44,8 @@ File::~File()
 */
 void File::createDirectory(const std::string name)
 {
-	if(File::exist(name) == false)
-	{
-		std::filesystem::create_directory(name);
-		std::cout << "[MakeLoader] The directory " << name << " is now created." << std::endl;
-	} else { 
-		std::cout << "[MakeLoader] The directory " << name << " already exist !" << std::endl;
-	}
+	std::filesystem::create_directory(name);
+	std::cout << "[MakeLoader] The directory " << name << " is created." << std::endl;
 }
 
 /**
@@ -66,6 +61,18 @@ bool File::exist(const std::string path)
 }
 
 /**
+* This method remove the file from the disk
+* and regenerate it.
+* @author Matrax
+* @version 1.0
+*/
+void File::regenerate()
+{
+    this->remove();
+    this->generate();
+}
+
+/**
 * This method remove the file from the disk.
 * @author Matrax
 * @version 1.0
@@ -78,7 +85,7 @@ void File::remove()
         this->m_file.close();
     }
 
-    std::remove(this->m_path.c_str());
+    std::filesystem::remove(this->m_path.c_str());
 }
 
 /**
@@ -89,15 +96,13 @@ void File::remove()
 void File::save()
 {
     this->m_file.open(this->m_path, std::fstream::out | std::fstream::app);
+
+    if(this->m_file.is_open() == false)
+        throw std::runtime_error("Can't save the file");
     
-    if(this->m_file.is_open() == true)
-    {
-        this->m_file << this->m_content << std::endl;
-        this->m_file.flush();
-        this->m_file.close();
-    } else {
-        std::cout << "[MakeLoader] Can't save the file " << this->m_path << std::endl;
-    }
+    this->m_file << this->m_content << std::endl;
+    this->m_file.flush();
+    this->m_file.close();
 }
 
 /**
@@ -135,14 +140,11 @@ void File::addContent(const std::string content)
 */
 std::string File::read()
 {
-    this->m_file.seekg (0, this->m_file.end);
-    unsigned int length = this->m_file.tellg();
-    char * buffer = new char[length];
-    this->m_file.seekg (0, this->m_file.beg);
-    this->m_file.read(buffer, length);
-    std::string data(buffer);
-    delete[] buffer;
-    return data;
+    unsigned int length = std::filesystem::file_size(this->m_path);
+    std::string result(length, '\0');
+    this->m_file.seekg(0, this->m_file.beg);
+    this->m_file.read(result.data(), length);
+    return result;
 }
 
 /**

@@ -11,6 +11,12 @@
 int main(int argc, char * argv[])
 {
 	Application application;
-	application.start(argc, argv);
+	
+	try {
+		application.start(argc, argv);
+	} catch(const std::runtime_error & exception) {	
+		std::cerr << "[MakeLoader] " << exception.what() << std::endl;
+	}
+
 	return 0;
 }

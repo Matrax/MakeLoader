@@ -41,7 +41,7 @@ class Application
 		//Constructors and destructor
 		Application();
 		Application(const Application &) = delete;
-		~Application();
+		virtual ~Application();
 
 		//Operators
 		Application & operator=(const Application &) = delete;
@@ -51,6 +51,7 @@ class Application
 
 		//Methods
 		void start(const int & argc, char * argv[]);
+		void informations();
 		std::vector<std::shared_ptr<Command>> & getCommands();
 		MakeFile * getMakefile();
 		LoaderFile * getLoaderfile();

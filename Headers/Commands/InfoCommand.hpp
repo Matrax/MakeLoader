@@ -3,8 +3,6 @@
 //Std includes
 #include <iostream>
 #include <vector>
-#include <string>
-#include <memory>
 
 //Makeloader includes
 #include "Command.hpp"

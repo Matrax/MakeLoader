@@ -19,7 +19,7 @@ class LoaderFile : public File
 
         //Constructors and destructor
         LoaderFile();
-        ~LoaderFile();
+        virtual ~LoaderFile();
 
         //Overrided methods
         void generate() override;

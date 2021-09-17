@@ -1,20 +1,21 @@
 #include "../../Headers/Commands/BuildCommand.hpp"
 
-BuildCommand::BuildCommand() : Command("build", "This command build your makefile using the \"Sources\" directory") {}
+BuildCommand::BuildCommand() : Command("build", "Build your makefile using the \"Sources\" directory") {}
 
 BuildCommand::~BuildCommand() {}
 
 void BuildCommand::execute() 
 {
-	if(File::exist("makeloader") == true)
-	{
-		std::string header = Application::getInstance()->getLoaderfile()->getContent();
-		std::cout << "\n[MakeLoader] Building the makefile ..." << std::endl;
-		Application::getInstance()->getMakefile()->addContent(header);
-		Application::getInstance()->getMakefile()->remove();
-		Application::getInstance()->getMakefile()->generate();
-		std::cout << "[MakeLoader] Makefile builded !\n" << std::endl;
-	} else {
-		std::cout << "[MakeLoader] You don't have a makeloader file in your project !\n" << std::endl;
-	}
+	if(Application::getInstance() == nullptr)
+		throw std::runtime_error("There is no Application instance !");
+
+	if(File::exist("makeloader") == false)
+		throw std::runtime_error("[MakeLoader] You don't have a makeloader file in your project !\n");
+
+	std::cout << "\n[MakeLoader] Building the makefile ..." << std::endl;
+	std::string header = Application::getInstance()->getLoaderfile()->getContent();
+	Application::getInstance()->getMakefile()->addContent(header);
+	Application::getInstance()->getMakefile()->regenerate();
+	std::cout << "[MakeLoader] Makefile builded !\n" << std::endl;
+
 }

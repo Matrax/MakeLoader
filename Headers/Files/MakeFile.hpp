@@ -19,7 +19,7 @@ class MakeFile : public File
 
         //Constructors and destructor
         MakeFile();
-        ~MakeFile();
+        virtual ~MakeFile();
 
         //Overrided methods
         void generate() override;

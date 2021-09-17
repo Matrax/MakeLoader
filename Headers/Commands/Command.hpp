@@ -2,9 +2,10 @@
 
 //Std includes
 #include <string>
+#include <stdexcept>
 
 /**
- * This class is an abstract class that represent a command for the application.
+ * This abstract class represent a command in the application.
  * Every child of this class must reimplement the execute pure virtual method.
  * Every command must have a name and a description.
  * @brief This class is an abstract class that represent a command for the application.

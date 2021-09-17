@@ -3,7 +3,6 @@
 //Std includes
 #include <iostream>
 #include <vector>
-#include <string>
 
 //Makeloader includes
 #include "../Core/Application.hpp"

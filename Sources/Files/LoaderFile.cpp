@@ -30,11 +30,13 @@ void LoaderFile::createCommand(const std::string name, const std::string require
     this->addContent(name);
     this->addContent(": ");
     this->addContent(requirement);
+
     if(command != "")
     {
         this->addContent("\n\t");
         this->addContent(command);
     }
+    
     this->addContent("\n");
 }
 
