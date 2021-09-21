@@ -6,8 +6,9 @@ InfoCommand::~InfoCommand() {}
 
 void InfoCommand::execute()  
 {
-	if(Application::getInstance() == nullptr)
+	Application * instance = Application::getInstance();
+	if(instance == nullptr)
 		throw std::runtime_error("There is no Application instance !");
 		
-	Application::getInstance()->informations();
+	instance->informations();
 }

@@ -1,0 +1,10 @@
+{
+	"COMPILER": "g++",
+	"ARCHIVER": "ar",
+	"VERSION": "-std=c++17",
+	"COMPILER_OUTPUT": "makeloader",
+	"ARCHIVER_OUTPUT": "",
+	"LINKER_FLAGS": "-O2",
+	"COMPILER_FLAGS": "-Wall -Wextra -Wold-style-cast",
+	"LIBS": ""
+}

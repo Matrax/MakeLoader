@@ -37,10 +37,10 @@ class File
         static void createDirectory(const std::string name);
 
         //Virtual methods
-        virtual void generate() = 0;
+        virtual void onCreate() = 0;
 
         //Methods
-        void regenerate();
+        void create();
         void remove();
         void save();
         void clear();

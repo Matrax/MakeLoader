@@ -1,4 +1,4 @@
-#================Global variables===============
+#================Header===============
 
 COMPILER=g++
 ARCHIVER=ar

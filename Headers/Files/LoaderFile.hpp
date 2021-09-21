@@ -7,6 +7,9 @@
 //MakeLoader includes
 #include "File.hpp"
 
+//Json includes
+#include "../../Includes/json.hpp"
+
 /**
 * This class represent the MakeLoader file used for generate your makefile.
 * @author Matrax
@@ -22,10 +25,10 @@ class LoaderFile : public File
         virtual ~LoaderFile();
 
         //Overrided methods
-        void generate() override;
+        void onCreate() override;
 
         //Methods
-        void createVariable(const std::string name, const std::string value);
-        void createCommand(const std::string name, const std::string requirement, const std::string command);
+        nlohmann::json getJSON();
+        
 
 };

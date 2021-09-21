@@ -1,6 +1,6 @@
 #include "../../Headers/Files/LoaderFile.hpp"
 
-LoaderFile::LoaderFile() : File("makeloader", true) {}
+LoaderFile::LoaderFile() : File("makeloader.json", true) {}
 
 LoaderFile::~LoaderFile() {}
 
@@ -9,45 +9,27 @@ LoaderFile::~LoaderFile() {}
 * @author Matrax
 * @version 1.0
 */
-void LoaderFile::generate()
+void LoaderFile::onCreate()
 {
-    this->addContent("#================Global variables===============\n\n");
-    this->createVariable("COMPILER", "g++");
-    this->createVariable("ARCHIVER", "ar");
-    this->createVariable("VERSION", "-std=c++17");
-    this->createVariable("COMPILER_OUTPUT", "application");
-    this->createVariable("ARCHIVER_OUTPUT", "libapplication.a");
-    this->createVariable("LINKER_FLAGS", "-O");
-    this->createVariable("COMPILER_FLAGS", "-Wall -Wextra -Wold-style-cast");
-    this->createVariable("LIBS", "");
-    this->addContent("\n#================Commands===============\n\n");
-    this->createCommand("all", "Application", "");
-    this->createCommand("app", "Application", "");
-    this->createCommand("static-lib", "StaticLibrary", "");
-    this->createCommand("clean", "", "rm Builds/$(OUTPUT)");
-    this->save();
+    this->addContent("{\n");
+    this->addContent("\t\"COMPILER\": \"g++\",\n");
+    this->addContent("\t\"ARCHIVER\": \"ar\",\n");
+    this->addContent("\t\"VERSION\": \"-std=c++17\",\n");
+    this->addContent("\t\"COMPILER_OUTPUT\": \"makeloader\",\n");
+    this->addContent("\t\"ARCHIVER_OUTPUT\": \"\",\n");
+    this->addContent("\t\"LINKER_FLAGS\": \"-O2\",\n");
+    this->addContent("\t\"COMPILER_FLAGS\": \"-Wall -Wextra -Wold-style-cast\",\n");
+    this->addContent("\t\"LIBS\": \"\"\n");
+    this->addContent("}");
 }
 
-void LoaderFile::createCommand(const std::string name, const std::string requirement, const std::string command)
+/**
+* This method return the content of the file in JSON format.
+* @return nlohmann::json The content of the file in JSON format.
+* @author Matrax
+* @version 1.0
+*/
+nlohmann::json LoaderFile::getJSON()
 {
-    this->addContent("\n");
-    this->addContent(name);
-    this->addContent(": ");
-    this->addContent(requirement);
-
-    if(command != "")
-    {
-        this->addContent("\n\t");
-        this->addContent(command);
-    }
-    
-    this->addContent("\n");
-}
-
-void LoaderFile::createVariable(const std::string name, const std::string value)
-{
-    this->addContent(name);
-    this->addContent("=");
-    this->addContent(value);
-    this->addContent("\n");
+    return nlohmann::json::parse(this->getContent());
 }

@@ -20,22 +20,46 @@ MakeFile::~MakeFile() {}
 * @author Matrax
 * @version 1.0
 */
-void MakeFile::generate()
+void MakeFile::onCreate()
+{
+    this->addContent("#The makefile will be generated in this file.");
+}
+
+void MakeFile::createHeader(nlohmann::json configurations)
+{
+    this->addContent("#================Header===============\n\n");
+    this->createVariable("COMPILER", configurations["COMPILER"]);
+    this->createVariable("ARCHIVER", configurations["ARCHIVER"]);
+    this->createVariable("VERSION", configurations["VERSION"]);
+    this->createVariable("COMPILER_OUTPUT", configurations["COMPILER_OUTPUT"]);
+    this->createVariable("ARCHIVER_OUTPUT", configurations["ARCHIVER_OUTPUT"]);
+    this->createVariable("LINKER_FLAGS", configurations["LINKER_FLAGS"]);
+    this->createVariable("COMPILER_FLAGS", configurations["COMPILER_FLAGS"]);
+    this->createVariable("LIBS", configurations["LIBS"]);
+    this->addContent("\n");
+}
+
+void MakeFile::createBody()
 {
     std::vector<std::filesystem::path> sources = this->getSources();
+
     if(sources.size() > 0)
     {
-        this->addContent("#================Linker===============\n\n");
+        this->addContent("#================Commands===============\n");
+        this->createCommand("all", "Application", "");
+        this->createCommand("app", "Application", "");
+        this->createCommand("static-lib", "StaticLibrary", "");
+        this->createCommand("clean", "", "rm Builds/$(OUTPUT)");
+        this->addContent("\n#================Linker===============\n");
         this->createExecutable(sources);
         this->createStaticLibrary(sources);
-        this->addContent("#================Compiler===============\n\n");
+        this->addContent("#================Compiler===============\n");
+
         for(std::vector<std::filesystem::path>::iterator path = sources.begin(); path != sources.end(); path++)
         {
             path->replace_extension("");
             this->createTarget(path->string(), path->filename().string());
-            std::cout << "[MakeLoader] " << path->string() << " added to the makefile." << std::endl;
         }
-        this->save();
     } else {
         std::cout << "[MakeLoader] You have no sources to build !" << std::endl;
     }
@@ -118,6 +142,30 @@ void MakeFile::createTarget(const std::string path, const std::string objectFile
     this->addContent(".cpp $(VERSION) $(COMPILER_FLAGS) -o Objects/");
     this->addContent(objectFile);
     this->addContent(".o\n");
+}
+
+void MakeFile::createCommand(const std::string name, const std::string requirement, const std::string command)
+{
+    this->addContent("\n");
+    this->addContent(name);
+    this->addContent(": ");
+    this->addContent(requirement);
+
+    if(command != "")
+    {
+        this->addContent("\n\t");
+        this->addContent(command);
+    }
+    
+    this->addContent("\n");
+}
+
+void MakeFile::createVariable(const std::string name, const std::string value)
+{
+    this->addContent(name);
+    this->addContent("=");
+    this->addContent(value);
+    this->addContent("\n");
 }
 
 /**

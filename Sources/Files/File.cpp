@@ -64,15 +64,15 @@ bool File::exist(const std::string path)
 }
 
 /**
-* This method remove the file from the disk
+* This method create the file in the disk
 * and regenerate it.
 * @author Matrax
 * @version 1.0
 */
-void File::regenerate()
+void File::create()
 {
-    this->remove();
-    this->generate();
+    this->onCreate();
+    this->save();
 }
 
 /**
