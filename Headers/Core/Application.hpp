@@ -35,7 +35,7 @@ class Application
 		std::vector<std::shared_ptr<Command>> m_commands;
 		std::unique_ptr<LoaderFile> m_loaderfile;
 		std::unique_ptr<MakeFile> m_makefile;
-		
+
 	public:
 
 		//Constructors and destructor
@@ -55,4 +55,5 @@ class Application
 		std::vector<std::shared_ptr<Command>> & getCommands();
 		MakeFile * getMakefile();
 		LoaderFile * getLoaderfile();
+		
 };

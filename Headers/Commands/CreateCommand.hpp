@@ -26,10 +26,10 @@ class CreateCommand : public Command
         //Constructors and destructor
         CreateCommand();
         CreateCommand(const CreateCommand &) = delete;
-        ~CreateCommand();
+        virtual ~CreateCommand();
 
         //Operators
-		CreateCommand & operator=(const CreateCommand &) = delete;
+		    CreateCommand & operator=(const CreateCommand &) = delete;
 
         //Overrided methods
         void execute() override;

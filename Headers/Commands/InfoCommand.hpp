@@ -23,10 +23,10 @@ class InfoCommand : public Command
         //Constructors and destructor
         InfoCommand();
         InfoCommand(const InfoCommand &) = delete;
-        ~InfoCommand();
+        virtual ~InfoCommand();
 
         //Operators
-		InfoCommand & operator=(const InfoCommand &) = delete;
+		    InfoCommand & operator=(const InfoCommand &) = delete;
 
         //Overrided methods
         void execute() override;

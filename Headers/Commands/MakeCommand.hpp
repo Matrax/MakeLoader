@@ -22,10 +22,10 @@ class MakeCommand : public Command
         //Constructors and destructor
         MakeCommand();
         MakeCommand(const MakeCommand &) = delete;
-        ~MakeCommand();
+        virtual ~MakeCommand();
 
         //Operators
-		MakeCommand & operator=(const MakeCommand &) = delete;
+		    MakeCommand & operator=(const MakeCommand &) = delete;
 
         //Overrided methods
         void execute() override;

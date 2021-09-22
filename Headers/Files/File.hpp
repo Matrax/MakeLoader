@@ -9,13 +9,13 @@
 
 /**
 * This abstract class represent a file.
-* It was developped to have an easier management of files 
+* It was developped to have an easier management of files
 * with the MakeLoader application. Every File classes need to
 * redefine the methods generate.
 * @author Matrax
 * @version 1.0
 **/
-class File 
+class File
 {
 
     private:
@@ -30,7 +30,11 @@ class File
         //Constructors and destructor
         File() = delete;
         File(std::string path, bool loadContent);
+        File(const File &) = delete;
         virtual ~File();
+
+        //Operators
+		    File & operator=(const File &) = delete;
 
         //Static functions
         static bool exist(const std::string path);

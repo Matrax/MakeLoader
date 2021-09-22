@@ -26,10 +26,10 @@ class BuildCommand : public Command
         //Constructors and destructor
         BuildCommand();
         BuildCommand(const BuildCommand &) = delete;
-        ~BuildCommand();
+        virtual ~BuildCommand();
 
         //Operators
-		BuildCommand & operator=(const BuildCommand &) = delete;
+		    BuildCommand & operator=(const BuildCommand &) = delete;
 
         //Overrided methods
         void execute() override;
