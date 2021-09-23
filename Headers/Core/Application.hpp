@@ -19,7 +19,7 @@
 * This class represent the application.
 * This class is a singleton, you can't have multiple instance.
 * The Application class manage the commands in the program,
-* the command entered by the user , the creation of the makeloader.txt file, and the makefile generated.
+* the command entered by the user , the creation of the makeloader.json file, and the makefile generated.
 * @author Matrax
 * @version 1.0
 **/
@@ -47,13 +47,13 @@ class Application
 		Application & operator=(const Application &) = delete;
 
 		//Static functions
-		static Application * getInstance();
+		static Application & getInstance();
+		static void infos();
 
 		//Methods
 		void start(const int & argc, char * argv[]);
-		void informations();
+		MakeFile & getMakefile();
+		LoaderFile & getLoaderfile();
 		std::vector<std::shared_ptr<Command>> & getCommands();
-		MakeFile * getMakefile();
-		LoaderFile * getLoaderfile();
-		
+
 };

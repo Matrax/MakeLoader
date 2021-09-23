@@ -22,13 +22,17 @@ class LoaderFile : public File
 
         //Constructors and destructor
         LoaderFile();
+        LoaderFile(const LoaderFile &) = delete;
         virtual ~LoaderFile();
+
+        //Operators
+        LoaderFile & operator=(const LoaderFile &) = delete;
 
         //Overrided methods
         void onCreate() override;
 
         //Methods
         nlohmann::json getJSON();
-        
+
 
 };

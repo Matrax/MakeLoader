@@ -21,19 +21,23 @@ class MakeFile : public File
 
         //Constructors and destructor
         MakeFile();
+        MakeFile(const MakeFile &) = delete;
         virtual ~MakeFile();
+
+        //Operators
+        MakeFile & operator=(const MakeFile &) = delete;
 
         //Overrided methods
         void onCreate() override;
 
         //Methods
-        void createHeader(nlohmann::json configurations);
         void createBody();
+        void createHeader(nlohmann::json configurations);
         void createStaticLibrary(std::vector<std::filesystem::path> sources);
         void createExecutable(std::vector<std::filesystem::path> sources);
         void createTarget(const std::string source, const std::string object);
-        void createVariable(const std::string name, const std::string value);
-        void createCommand(const std::string name, const std::string requirement, const std::string command);
+        void createVariable(const std::string name, const std::string value = "");
+        void createCommand(const std::string name, const std::string requirement = "", const std::string command = "");
         std::vector<std::filesystem::path> getSources(const std::string directory = "Sources") const;
 
 };

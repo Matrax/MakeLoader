@@ -4,32 +4,51 @@ CreateCommand::CreateCommand() : Command("create", "Create all folders needed in
 
 CreateCommand::~CreateCommand() {}
 
-void CreateCommand::execute() 
+void CreateCommand::execute()
 {
-	Application * instance = Application::getInstance();
-
-	if(instance == nullptr)
-		throw std::runtime_error("There is no application instance !");
-
 	std::cout << "\n[MakeLoader] Creating project ..." << std::endl;
-	File::createDirectory("Sources");
-	File::createDirectory("Headers");
-	File::createDirectory("Includes");
-	File::createDirectory("Builds");
-	File::createDirectory("Objects");
-	std::cout << "[MakeLoader] Project Folders OK !" << std::endl;
-	
+
+	if(File::exist("Sources") == false)
+	{
+		File::createDirectory("Sources");
+		std::cout << "\n[MakeLoader] Sources folder created !" << std::endl;
+	}
+
+	if(File::exist("Headers") == false)
+	{
+		File::createDirectory("Headers");
+		std::cout << "\n[MakeLoader] Headers folder created !" << std::endl;
+	}
+
+	if(File::exist("Includes") == false)
+	{
+		File::createDirectory("Includes");
+		std::cout << "\n[MakeLoader] Includes folder created !" << std::endl;
+	}
+
+	if(File::exist("Builds") == false)
+	{
+		File::createDirectory("Builds");
+		std::cout << "\n[MakeLoader] Builds folder created !" << std::endl;
+	}
+
+	if(File::exist("Objects") == false)
+	{
+		File::createDirectory("Objects");
+		std::cout << "\n[MakeLoader] Objects folder created !" << std::endl;
+	}
+
 	if(File::exist("makeloader.json") == false)
 	{
-		instance->getLoaderfile()->create();
-		std::cout << "[MakeLoader] Makeloader.json OK !" << std::endl;
+		Application::getInstance().getLoaderfile().create();
+		std::cout << "[MakeLoader] Makeloader.json created !" << std::endl;
 	}
 
 	if(File::exist("makefile") == false)
 	{
-		instance->getMakefile()->create();
-		std::cout << "[MakeLoader] Makefile OK !" << std::endl;
+		Application::getInstance().getMakefile().create();
+		std::cout << "[MakeLoader] Makefile created !" << std::endl;
 	}
-	
+
 	std::cout << "[MakeLoader] Project OK !\n" << std::endl;
 }

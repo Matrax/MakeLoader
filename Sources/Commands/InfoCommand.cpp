@@ -4,11 +4,7 @@ InfoCommand::InfoCommand() : Command("info", "Show in the console all informatio
 
 InfoCommand::~InfoCommand() {}
 
-void InfoCommand::execute()  
+void InfoCommand::execute()
 {
-	Application * instance = Application::getInstance();
-	if(instance == nullptr)
-		throw std::runtime_error("There is no Application instance !");
-		
-	instance->informations();
+	Application::infos();
 }

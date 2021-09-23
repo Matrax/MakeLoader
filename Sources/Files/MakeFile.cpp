@@ -22,47 +22,45 @@ MakeFile::~MakeFile() {}
 */
 void MakeFile::onCreate()
 {
-    this->addContent("#The makefile will be generated in this file.");
+  this->addContent("#The makefile will be generated in this file.");
 }
 
 void MakeFile::createHeader(nlohmann::json configurations)
 {
-    this->addContent("#================Header===============\n\n");
-    this->createVariable("COMPILER", configurations["COMPILER"]);
-    this->createVariable("ARCHIVER", configurations["ARCHIVER"]);
-    this->createVariable("VERSION", configurations["VERSION"]);
-    this->createVariable("COMPILER_OUTPUT", configurations["COMPILER_OUTPUT"]);
-    this->createVariable("ARCHIVER_OUTPUT", configurations["ARCHIVER_OUTPUT"]);
-    this->createVariable("LINKER_FLAGS", configurations["LINKER_FLAGS"]);
-    this->createVariable("COMPILER_FLAGS", configurations["COMPILER_FLAGS"]);
-    this->createVariable("LIBS", configurations["LIBS"]);
-    this->addContent("\n");
+  this->addContent("#================Header===============\n\n");
+  this->createVariable("COMPILER", configurations["COMPILER"]);
+  this->createVariable("ARCHIVER", configurations["ARCHIVER"]);
+  this->createVariable("VERSION", configurations["VERSION"]);
+  this->createVariable("COMPILER_OUTPUT", configurations["COMPILER_OUTPUT"]);
+  this->createVariable("ARCHIVER_OUTPUT", configurations["ARCHIVER_OUTPUT"]);
+  this->createVariable("LINKER_FLAGS", configurations["LINKER_FLAGS"]);
+  this->createVariable("COMPILER_FLAGS", configurations["COMPILER_FLAGS"]);
+  this->createVariable("LIBS", configurations["LIBS"]);
+  this->addContent("\n");
 }
 
 void MakeFile::createBody()
 {
-    std::vector<std::filesystem::path> sources = this->getSources();
+  std::vector<std::filesystem::path> sources = this->getSources();
 
-    if(sources.size() > 0)
-    {
-        this->addContent("#================Commands===============\n");
-        this->createCommand("all", "Application", "");
-        this->createCommand("app", "Application", "");
-        this->createCommand("static-lib", "StaticLibrary", "");
-        this->createCommand("clean", "", "rm Builds/$(OUTPUT)");
-        this->addContent("\n#================Linker===============\n");
-        this->createExecutable(sources);
-        this->createStaticLibrary(sources);
-        this->addContent("#================Compiler===============\n");
+  if(sources.size() <= 0)
+  throw std::runtime_error("You have no sources to build !");
 
-        for(std::vector<std::filesystem::path>::iterator path = sources.begin(); path != sources.end(); path++)
-        {
-            path->replace_extension("");
-            this->createTarget(path->string(), path->filename().string());
-        }
-    } else {
-        std::cout << "[MakeLoader] You have no sources to build !" << std::endl;
-    }
+  this->addContent("#================Commands===============\n");
+  this->createCommand("all", "Application", "");
+  this->createCommand("app", "Application", "");
+  this->createCommand("static-lib", "StaticLibrary", "");
+  this->createCommand("clean", "", "rm Builds/$(OUTPUT)");
+  this->addContent("\n#================Linker===============\n");
+  this->createExecutable(sources);
+  this->createStaticLibrary(sources);
+  this->addContent("#================Compiler===============\n");
+
+  for(std::vector<std::filesystem::path>::iterator path = sources.begin(); path != sources.end(); path++)
+  {
+    path->replace_extension("");
+    this->createTarget(path->string(), path->filename().string());
+  }
 }
 
 /**
@@ -73,25 +71,30 @@ void MakeFile::createBody()
 */
 void MakeFile::createStaticLibrary(std::vector<std::filesystem::path> sources)
 {
-    this->addContent("\nStaticLibrary:");
-    for(std::vector<std::filesystem::path>::iterator path = sources.begin(); path != sources.end(); path++)
-    {
-        path->replace_extension("");
-        this->addContent(" Objects/");
-        this->addContent(path->filename().string());
-        this->addContent(".o");
-    }
+  if(sources.size() <= 0)
+    throw std::runtime_error("You have no sources to create the library command line !");
 
-    this->addContent("\n\t$(ARCHIVER) rcs Builds/$(ARCHIVER_OUTPUT)");
-    for(std::vector<std::filesystem::path>::iterator path = sources.begin(); path != sources.end(); path++)
-    {
-        path->replace_extension("");
-        this->addContent(" Objects/");
-        this->addContent(path->filename().string());
-        this->addContent(".o");
-    }
+  this->addContent("\nStaticLibrary:");
 
-    this->addContent("\n\n");
+  for(std::vector<std::filesystem::path>::iterator path = sources.begin(); path != sources.end(); path++)
+  {
+    path->replace_extension("");
+    this->addContent(" Objects/");
+    this->addContent(path->filename().string());
+    this->addContent(".o");
+  }
+
+  this->addContent("\n\t$(ARCHIVER) rcs Builds/$(ARCHIVER_OUTPUT)");
+
+  for(std::vector<std::filesystem::path>::iterator path = sources.begin(); path != sources.end(); path++)
+  {
+    path->replace_extension("");
+    this->addContent(" Objects/");
+    this->addContent(path->filename().string());
+    this->addContent(".o");
+  }
+
+  this->addContent("\n\n");
 }
 
 /**
@@ -102,25 +105,30 @@ void MakeFile::createStaticLibrary(std::vector<std::filesystem::path> sources)
 */
 void MakeFile::createExecutable(std::vector<std::filesystem::path> sources)
 {
-    this->addContent("\nApplication:");
-    for(std::vector<std::filesystem::path>::iterator path = sources.begin(); path != sources.end(); path++)
-    {
-        path->replace_extension("");
-        this->addContent(" Objects/");
-        this->addContent(path->filename().string());
-        this->addContent(".o");
-    }
+  if(sources.size() <= 0)
+    throw std::runtime_error("You have no sources to create the executable command line !");
 
-    this->addContent("\n\t$(COMPILER) $(LINKER_FLAGS)");
-    for(std::vector<std::filesystem::path>::iterator path = sources.begin(); path != sources.end(); path++)
-    {
-        path->replace_extension("");
-        this->addContent(" Objects/");
-        this->addContent(path->filename().string());
-        this->addContent(".o");
-    }
-    
-    this->addContent(" $(LIBS) -o Builds/$(COMPILER_OUTPUT)\n\n");
+  this->addContent("\nApplication:");
+
+  for(std::vector<std::filesystem::path>::iterator path = sources.begin(); path != sources.end(); path++)
+  {
+    path->replace_extension("");
+    this->addContent(" Objects/");
+    this->addContent(path->filename().string());
+    this->addContent(".o");
+  }
+
+  this->addContent("\n\t$(COMPILER) $(LINKER_FLAGS)");
+
+  for(std::vector<std::filesystem::path>::iterator path = sources.begin(); path != sources.end(); path++)
+  {
+    path->replace_extension("");
+    this->addContent(" Objects/");
+    this->addContent(path->filename().string());
+    this->addContent(".o");
+  }
+
+  this->addContent(" $(LIBS) -o Builds/$(COMPILER_OUTPUT)\n\n");
 }
 
 /**
@@ -132,40 +140,61 @@ void MakeFile::createExecutable(std::vector<std::filesystem::path> sources)
 */
 void MakeFile::createTarget(const std::string path, const std::string objectFile)
 {
-    this->addContent("\nObjects/");
-    this->addContent(objectFile);
-    this->addContent(".o : ");
-    this->addContent(path);
-    this->addContent(".cpp");
-    this->addContent("\n\t$(COMPILER) -c ");
-    this->addContent(path);
-    this->addContent(".cpp $(VERSION) $(COMPILER_FLAGS) -o Objects/");
-    this->addContent(objectFile);
-    this->addContent(".o\n");
+  if(path.empty() == true)
+    throw std::runtime_error("No path specified for the target !");
+
+  if(objectFile.empty() == true)
+    throw std::runtime_error("No object file specified for the target !");
+
+  this->addContent("\nObjects/");
+  this->addContent(objectFile);
+  this->addContent(".o : ");
+  this->addContent(path);
+  this->addContent(".cpp");
+  this->addContent("\n\t$(COMPILER) -c ");
+  this->addContent(path);
+  this->addContent(".cpp $(VERSION) $(COMPILER_FLAGS) -o Objects/");
+  this->addContent(objectFile);
+  this->addContent(".o\n");
 }
 
 void MakeFile::createCommand(const std::string name, const std::string requirement, const std::string command)
 {
-    this->addContent("\n");
-    this->addContent(name);
-    this->addContent(": ");
-    this->addContent(requirement);
+  if(name.empty() == true)
+    throw std::runtime_error("No name specified for the command !");
 
-    if(command != "")
-    {
-        this->addContent("\n\t");
-        this->addContent(command);
-    }
-    
-    this->addContent("\n");
+  this->addContent("\n");
+  this->addContent(name);
+  this->addContent(": ");
+
+  if(requirement.empty() == false)
+  {
+    this->addContent(requirement);
+  }
+
+  if(command.empty() == false)
+  {
+    this->addContent("\n\t");
+    this->addContent(command);
+  }
+
+  this->addContent("\n");
 }
 
 void MakeFile::createVariable(const std::string name, const std::string value)
 {
-    this->addContent(name);
-    this->addContent("=");
+  if(name.empty() == true)
+    throw std::runtime_error("No name specified for the variable !");
+
+  this->addContent(name);
+  this->addContent("=");
+
+  if(value.empty() == false)
+  {
     this->addContent(value);
-    this->addContent("\n");
+  }
+
+  this->addContent("\n");
 }
 
 /**
@@ -176,15 +205,15 @@ void MakeFile::createVariable(const std::string name, const std::string value)
 */
 std::vector<std::filesystem::path> MakeFile::getSources(const std::string directory) const
 {
-    std::vector<std::filesystem::path> sources;
-    if(File::exist(directory) == true)
-    {
-        for (std::filesystem::directory_entry file : std::filesystem::recursive_directory_iterator(directory))
-        {
-            if(file.is_directory() == false) sources.push_back(file.path());
-        }
-    } else {
-        std::cout << "[MakeLoader] You have no " << directory << " directory in your project !" << std::endl;
-    }
-    return sources;
+  std::vector<std::filesystem::path> sources;
+
+  if(File::exist(directory) == false)
+    throw std::runtime_error("The directory doesn't exist !");
+
+  for (std::filesystem::directory_entry file : std::filesystem::recursive_directory_iterator(directory))
+  {
+    if(file.is_directory() == false) sources.push_back(file.path());
+  }
+
+  return sources;
 }

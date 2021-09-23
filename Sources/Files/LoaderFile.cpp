@@ -11,16 +11,16 @@ LoaderFile::~LoaderFile() {}
 */
 void LoaderFile::onCreate()
 {
-    this->addContent("{\n");
-    this->addContent("\t\"COMPILER\": \"g++\",\n");
-    this->addContent("\t\"ARCHIVER\": \"ar\",\n");
-    this->addContent("\t\"VERSION\": \"-std=c++17\",\n");
-    this->addContent("\t\"COMPILER_OUTPUT\": \"makeloader\",\n");
-    this->addContent("\t\"ARCHIVER_OUTPUT\": \"\",\n");
-    this->addContent("\t\"LINKER_FLAGS\": \"-O2\",\n");
-    this->addContent("\t\"COMPILER_FLAGS\": \"-Wall -Wextra -Wold-style-cast\",\n");
-    this->addContent("\t\"LIBS\": \"\"\n");
-    this->addContent("}");
+  this->addContent("{\n");
+  this->addContent("\t\"COMPILER\": \"g++\",\n");
+  this->addContent("\t\"ARCHIVER\": \"ar\",\n");
+  this->addContent("\t\"VERSION\": \"-std=c++17\",\n");
+  this->addContent("\t\"COMPILER_OUTPUT\": \"makeloader\",\n");
+  this->addContent("\t\"ARCHIVER_OUTPUT\": \"\",\n");
+  this->addContent("\t\"LINKER_FLAGS\": \"-O2\",\n");
+  this->addContent("\t\"COMPILER_FLAGS\": \"-Wall -Wextra -Wold-style-cast\",\n");
+  this->addContent("\t\"LIBS\": \"\"\n");
+  this->addContent("}");
 }
 
 /**
@@ -31,5 +31,5 @@ void LoaderFile::onCreate()
 */
 nlohmann::json LoaderFile::getJSON()
 {
-    return nlohmann::json::parse(this->getContent());
+  return nlohmann::json::parse(this->getContent());
 }

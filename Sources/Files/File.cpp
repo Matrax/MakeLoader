@@ -7,17 +7,16 @@
 * @author Matrax
 * @version 1.0
 */
-File::File(std::string path, bool loadContent) : 
-    m_path(path), 
-    m_file(std::fstream()),
-    m_content("") 
+File::File(std::string path, bool loadContent) : m_path(path),
+                                                 m_file(std::fstream()),
+                                                 m_content("")
 {
-    if(loadContent == true && File::exist(path) == true)
-    {
-        this->m_file.open(this->m_path, std::fstream::in);
-        this->m_content = this->read();
-        this->m_file.close();
-    }
+  if(loadContent == true && File::exist(path) == true)
+  {
+    this->m_file.open(this->m_path, std::fstream::in);
+    this->m_content = this->read();
+    this->m_file.close();
+  }
 }
 
 /**
@@ -28,11 +27,11 @@ File::File(std::string path, bool loadContent) :
 */
 File::~File()
 {
-    if(this->m_file.is_open() == true)
-    {
-        this->m_file.flush();
-        this->m_file.close();
-    }
+  if(this->m_file.is_open() == true)
+  {
+    this->m_file.flush();
+    this->m_file.close();
+  }
 }
 
 /**
@@ -44,23 +43,19 @@ File::~File()
 */
 void File::createDirectory(const std::string name)
 {
-    if(File::exist(name) == false)
-    {
-        std::filesystem::create_directory(name);
-        std::cout << "[MakeLoader] The directory " << name << " is created." << std::endl;
-    }
+  std::filesystem::create_directory(name);
 }
 
 /**
 * This static function check if a directory or a file exist.
 * @param const std::string path The name of the directory.
-* @return bool if the directory alraedy exist. 
+* @return bool if the directory alraedy exist.
 * @author Matrax
 * @version 1.0
 */
 bool File::exist(const std::string path)
 {
-    return std::filesystem::exists(path);
+  return std::filesystem::exists(path);
 }
 
 /**
@@ -71,8 +66,8 @@ bool File::exist(const std::string path)
 */
 void File::create()
 {
-    this->onCreate();
-    this->save();
+  this->onCreate();
+  this->save();
 }
 
 /**
@@ -82,13 +77,13 @@ void File::create()
 */
 void File::remove()
 {
-    if(this->m_file.is_open() == true)
-    {
-        this->m_file.flush();
-        this->m_file.close();
-    }
+  if(this->m_file.is_open() == true)
+  {
+    this->m_file.flush();
+    this->m_file.close();
+  }
 
-    std::filesystem::remove(this->m_path.c_str());
+  std::filesystem::remove(this->m_path.c_str());
 }
 
 /**
@@ -98,14 +93,14 @@ void File::remove()
 */
 void File::save()
 {
-    this->m_file.open(this->m_path, std::fstream::out | std::fstream::app);
+  this->m_file.open(this->m_path, std::fstream::out | std::fstream::app);
 
-    if(this->m_file.is_open() == false)
-        throw std::runtime_error("Can't save the file");
-    
-    this->m_file << this->m_content << std::endl;
-    this->m_file.flush();
-    this->m_file.close();
+  if(this->m_file.is_open() == false)
+    throw std::runtime_error("Can't save the file");
+
+  this->m_file << this->m_content << std::endl;
+  this->m_file.flush();
+  this->m_file.close();
 }
 
 /**
@@ -115,10 +110,10 @@ void File::save()
 */
 void File::clear()
 {
-    if(this->m_content.empty() == false)
-    {
-        this->m_content = "";
-    }
+  if(this->m_content.empty() == false)
+  {
+    this->m_content = "";
+  }
 }
 
 /**
@@ -129,10 +124,10 @@ void File::clear()
 */
 void File::addContent(const std::string content)
 {
-    if(content.empty() == false)
-    {
-        this->m_content.append(content);
-    }
+  if(content.empty() == false)
+  {
+    this->m_content.append(content);
+  }
 }
 
 /**
@@ -143,11 +138,11 @@ void File::addContent(const std::string content)
 */
 std::string File::read()
 {
-    unsigned int length = std::filesystem::file_size(this->m_path);
-    std::string result(length, '\0');
-    this->m_file.seekg(0, this->m_file.beg);
-    this->m_file.read(result.data(), length);
-    return result;
+  unsigned int length = std::filesystem::file_size(this->m_path);
+  std::string result(length, '\0');
+  this->m_file.seekg(0, this->m_file.beg);
+  this->m_file.read(result.data(), length);
+  return result;
 }
 
 /**
@@ -158,7 +153,7 @@ std::string File::read()
 */
 const std::string File::getPath() const
 {
-    return this->m_path;
+  return this->m_path;
 }
 
 /**
@@ -169,5 +164,5 @@ const std::string File::getPath() const
 */
 std::string File::getContent() const
 {
-    return this->m_content;
+  return this->m_content;
 }

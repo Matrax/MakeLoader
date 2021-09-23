@@ -2,7 +2,7 @@
 
 /**
 * Main entry of the MakeLoader program.
-* This main function initialize and start the Application object that 
+* This main function initialize and start the Application object that
 * is a representation of the program and manage the command entered by the user.
 * check how to use MakeLoader here : https://github.com/Matrax/MakeLoader
 * @author Matrax
@@ -11,10 +11,10 @@
 int main(int argc, char * argv[])
 {
 	Application application;
-	
+
 	try {
 		application.start(argc, argv);
-	} catch(const std::runtime_error & exception) {	
+	} catch(const std::runtime_error & exception) {
 		std::cerr << "[MakeLoader] " << exception.what() << std::endl;
 	}
 
