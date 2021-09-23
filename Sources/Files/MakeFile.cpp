@@ -9,7 +9,7 @@
 MakeFile::MakeFile() : File("makefile", false) {}
 
 /**
-* Desctructor of the class MakeFile.
+* Destructor of the class MakeFile.
 * @author Matrax
 * @version 1.0
 */
@@ -22,7 +22,7 @@ MakeFile::~MakeFile() {}
 */
 void MakeFile::onCreate()
 {
-  this->addContent("#The makefile will be generated in this file.");
+  this->addContent("#The makefile will be generated here.");
 }
 
 void MakeFile::createHeader(nlohmann::json configurations)
@@ -200,6 +200,7 @@ void MakeFile::createVariable(const std::string name, const std::string value)
 /**
 * This method return all the sources files from a directory.
 * @param const std::string directory The directory where the program search for sources files.
+* @return std::vector<std::filesystem::path> All the sources files from a directory.
 * @author Matrax
 * @version 1.0
 */
