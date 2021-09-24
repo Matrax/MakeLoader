@@ -1,17 +1,17 @@
-#include "../../Headers/Files/File.hpp"
+#include "../../Headers/Files/ApplicationFile.hpp"
 
 /**
-* Constructor of the abstract class File.
+* Constructor of the abstract class ApplicationFile.
 * @param std::string path The path of the file.
-* @param bool loadContent If the file need to be loaded from the disk in the constructor.
+* @param bool loaded If the file need to be loaded from the disk in the constructor.
 * @author Matrax
 * @version 1.0
 */
-File::File(std::string path, bool loadContent) : m_path(path),
+ApplicationFile::ApplicationFile(std::string path, bool loaded) : m_path(path),
                                                  m_file(std::fstream()),
                                                  m_content("")
 {
-  if(loadContent == true && File::exist(path) == true)
+  if(loaded == true && ApplicationFile::exist(path) == true)
   {
     this->m_file.open(this->m_path, std::fstream::in);
     this->m_content = this->read();
@@ -20,12 +20,12 @@ File::File(std::string path, bool loadContent) : m_path(path),
 }
 
 /**
-* Destructor of the class File.
+* Destructor of the class ApplicationFile.
 * If the file is open, the destructor flush and close the file.
 * @author Matrax
 * @version 1.0
 */
-File::~File()
+ApplicationFile::~ApplicationFile()
 {
   if(this->m_file.is_open() == true)
   {
@@ -41,7 +41,7 @@ File::~File()
 * @author Matrax
 * @version 1.0
 */
-void File::createDirectory(const std::string name)
+void ApplicationFile::createDirectory(const std::string name)
 {
   std::filesystem::create_directory(name);
 }
@@ -53,18 +53,29 @@ void File::createDirectory(const std::string name)
 * @author Matrax
 * @version 1.0
 */
-bool File::exist(const std::string path)
+bool ApplicationFile::exist(const std::string path)
 {
   return std::filesystem::exists(path);
 }
 
 /**
-* This method create the file in the disk
-* and regenerate it.
+* This static function return the extension of a file.
+* @param const std::string path The name of the directory.
+* @return bool if the directory alraedy exist.
 * @author Matrax
 * @version 1.0
 */
-void File::create()
+std::string ApplicationFile::getExtension(const std::filesystem::path path)
+{
+  return path.extension().string();
+}
+
+/**
+* This method create the file on the disk.
+* @author Matrax
+* @version 1.0
+*/
+void ApplicationFile::create()
 {
   this->onCreate();
   this->save();
@@ -75,7 +86,7 @@ void File::create()
 * @author Matrax
 * @version 1.0
 */
-void File::remove()
+void ApplicationFile::remove()
 {
   if(this->m_file.is_open() == true)
   {
@@ -91,7 +102,7 @@ void File::remove()
 * @author Matrax
 * @version 1.0
 */
-void File::save()
+void ApplicationFile::save()
 {
   this->m_file.open(this->m_path, std::fstream::out | std::fstream::app);
 
@@ -108,7 +119,7 @@ void File::save()
 * @author Matrax
 * @version 1.0
 */
-void File::clear()
+void ApplicationFile::clear()
 {
   if(this->m_content.empty() == false)
   {
@@ -122,7 +133,7 @@ void File::clear()
 * @author Matrax
 * @version 1.0
 */
-void File::addContent(const std::string content)
+void ApplicationFile::addContent(const std::string content)
 {
   if(content.empty() == false)
   {
@@ -136,7 +147,7 @@ void File::addContent(const std::string content)
 * @author Matrax
 * @version 1.0
 */
-std::string File::read()
+std::string ApplicationFile::read()
 {
   unsigned int length = std::filesystem::file_size(this->m_path);
   std::string result(length, '\0');
@@ -151,7 +162,7 @@ std::string File::read()
 * @author Matrax
 * @version 1.0
 */
-const std::string File::getPath() const
+const std::string ApplicationFile::getPath() const
 {
   return this->m_path;
 }
@@ -162,7 +173,7 @@ const std::string File::getPath() const
 * @author Matrax
 * @version 1.0
 */
-std::string File::getContent() const
+std::string ApplicationFile::getContent() const
 {
   return this->m_content;
 }

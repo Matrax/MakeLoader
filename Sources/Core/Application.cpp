@@ -18,7 +18,6 @@ Application::Application() : m_commands(std::vector<std::shared_ptr<Command>>())
 
 	this->m_commands.push_back(std::make_shared<CreateCommand>());
 	this->m_commands.push_back(std::make_shared<BuildCommand>());
-	this->m_commands.push_back(std::make_shared<MakeCommand>());
 	this->m_commands.push_back(std::make_shared<InfoCommand>());
 	Application::instance.reset(this);
 }
@@ -85,22 +84,18 @@ void Application::infos()
 void Application::start(const int & argc, char * argv[])
 {
 	if(argv == nullptr || argc <= 1)
-		throw std::runtime_error("There are no arguments in the command !");
+		throw std::runtime_error("You need to put an argument (type ./makeloader info) !");
 
 	if(this->m_commands.empty() == true)
 		throw std::runtime_error("There are no commands loaded !");
 
-	try {
-		for(std::vector<std::shared_ptr<Command>>::iterator command = this->m_commands.begin(); command != this->m_commands.end(); command++)
+	for(std::vector<std::shared_ptr<Command>>::iterator command = this->m_commands.begin(); command != this->m_commands.end(); command++)
+	{
+		if(command->get()->getName() == argv[1])
 		{
-			if(command->get()->getName() == argv[1])
-			{
-				command->get()->execute();
-				break;
-			}
+			command->get()->execute();
+			break;
 		}
-	} catch(const std::runtime_error & exception) {
-		std::cerr << "[MakeLoader] " << exception.what() << std::endl;
 	}
 }
 

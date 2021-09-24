@@ -22,12 +22,12 @@ clean:
 
 #================Linker===============
 
-Application: Objects/BuildCommand.o Objects/Command.o Objects/CreateCommand.o Objects/InfoCommand.o Objects/MakeCommand.o Objects/Application.o Objects/File.o Objects/LoaderFile.o Objects/MakeFile.o Objects/Main.o
-	$(COMPILER) $(LINKER_FLAGS) Objects/BuildCommand.o Objects/Command.o Objects/CreateCommand.o Objects/InfoCommand.o Objects/MakeCommand.o Objects/Application.o Objects/File.o Objects/LoaderFile.o Objects/MakeFile.o Objects/Main.o $(LIBS) -o Builds/$(COMPILER_OUTPUT)
+Application: Objects/BuildCommand.o Objects/Command.o Objects/CreateCommand.o Objects/InfoCommand.o Objects/Application.o Objects/ApplicationFile.o Objects/LoaderFile.o Objects/MakeFile.o Objects/Main.o
+	$(COMPILER) $(LINKER_FLAGS) Objects/BuildCommand.o Objects/Command.o Objects/CreateCommand.o Objects/InfoCommand.o Objects/Application.o Objects/ApplicationFile.o Objects/LoaderFile.o Objects/MakeFile.o Objects/Main.o $(LIBS) -o Builds/$(COMPILER_OUTPUT)
 
 
-StaticLibrary: Objects/BuildCommand.o Objects/Command.o Objects/CreateCommand.o Objects/InfoCommand.o Objects/MakeCommand.o Objects/Application.o Objects/File.o Objects/LoaderFile.o Objects/MakeFile.o Objects/Main.o
-	$(ARCHIVER) rcs Builds/$(ARCHIVER_OUTPUT) Objects/BuildCommand.o Objects/Command.o Objects/CreateCommand.o Objects/InfoCommand.o Objects/MakeCommand.o Objects/Application.o Objects/File.o Objects/LoaderFile.o Objects/MakeFile.o Objects/Main.o
+StaticLibrary: Objects/BuildCommand.o Objects/Command.o Objects/CreateCommand.o Objects/InfoCommand.o Objects/Application.o Objects/ApplicationFile.o Objects/LoaderFile.o Objects/MakeFile.o Objects/Main.o
+	$(ARCHIVER) rcs Builds/$(ARCHIVER_OUTPUT) Objects/BuildCommand.o Objects/Command.o Objects/CreateCommand.o Objects/InfoCommand.o Objects/Application.o Objects/ApplicationFile.o Objects/LoaderFile.o Objects/MakeFile.o Objects/Main.o
 
 #================Compiler===============
 
@@ -43,14 +43,11 @@ Objects/CreateCommand.o : Sources/Commands/CreateCommand.cpp
 Objects/InfoCommand.o : Sources/Commands/InfoCommand.cpp
 	$(COMPILER) -c Sources/Commands/InfoCommand.cpp $(VERSION) $(COMPILER_FLAGS) -o Objects/InfoCommand.o
 
-Objects/MakeCommand.o : Sources/Commands/MakeCommand.cpp
-	$(COMPILER) -c Sources/Commands/MakeCommand.cpp $(VERSION) $(COMPILER_FLAGS) -o Objects/MakeCommand.o
-
 Objects/Application.o : Sources/Core/Application.cpp
 	$(COMPILER) -c Sources/Core/Application.cpp $(VERSION) $(COMPILER_FLAGS) -o Objects/Application.o
 
-Objects/File.o : Sources/Files/File.cpp
-	$(COMPILER) -c Sources/Files/File.cpp $(VERSION) $(COMPILER_FLAGS) -o Objects/File.o
+Objects/ApplicationFile.o : Sources/Files/ApplicationFile.cpp
+	$(COMPILER) -c Sources/Files/ApplicationFile.cpp $(VERSION) $(COMPILER_FLAGS) -o Objects/ApplicationFile.o
 
 Objects/LoaderFile.o : Sources/Files/LoaderFile.cpp
 	$(COMPILER) -c Sources/Files/LoaderFile.cpp $(VERSION) $(COMPILER_FLAGS) -o Objects/LoaderFile.o

@@ -4,7 +4,7 @@
 #include <vector>
 
 //MakeLoader includes
-#include "File.hpp"
+#include "ApplicationFile.hpp"
 
 //Json includes
 #include "../../Includes/json.hpp"
@@ -15,7 +15,7 @@
 * @author Matrax
 * @version 1.0
 **/
-class MakeFile : public File
+class MakeFile : public ApplicationFile
 {
     public:
 

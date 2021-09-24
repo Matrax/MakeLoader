@@ -6,7 +6,7 @@
 * @author Matrax
 * @version 1.0
 */
-MakeFile::MakeFile() : File("makefile", false) {}
+MakeFile::MakeFile() : ApplicationFile("makefile", false) {}
 
 /**
 * Destructor of the class MakeFile.
@@ -16,7 +16,7 @@ MakeFile::MakeFile() : File("makefile", false) {}
 MakeFile::~MakeFile() {}
 
 /**
-* This method generate the content of the file.
+* This method generate the content of the makefile the first time it is created.
 * @author Matrax
 * @version 1.0
 */
@@ -25,6 +25,11 @@ void MakeFile::onCreate()
   this->addContent("#The makefile will be generated here.");
 }
 
+/**
+* This method create the header of the makefile.
+* @author Matrax
+* @version 1.0
+*/
 void MakeFile::createHeader(nlohmann::json configurations)
 {
   this->addContent("#================Header===============\n\n");
@@ -39,12 +44,17 @@ void MakeFile::createHeader(nlohmann::json configurations)
   this->addContent("\n");
 }
 
+/**
+* This method create the body of the makefile.
+* @author Matrax
+* @version 1.0
+*/
 void MakeFile::createBody()
 {
   std::vector<std::filesystem::path> sources = this->getSources();
 
   if(sources.size() <= 0)
-  throw std::runtime_error("You have no sources to build !");
+    throw std::runtime_error("You have no sources to build !");
 
   this->addContent("#================Commands===============\n");
   this->createCommand("all", "Application", "");
@@ -158,6 +168,14 @@ void MakeFile::createTarget(const std::string path, const std::string objectFile
   this->addContent(".o\n");
 }
 
+/**
+* This method create a command in the makefile.
+* @param const std::string name The name of the command.
+* @param const std::string requirement The requirement for the commands to execute.
+* @param const std::string command The command to execute.
+* @author Matrax
+* @version 1.0
+*/
 void MakeFile::createCommand(const std::string name, const std::string requirement, const std::string command)
 {
   if(name.empty() == true)
@@ -181,6 +199,13 @@ void MakeFile::createCommand(const std::string name, const std::string requireme
   this->addContent("\n");
 }
 
+/**
+* This method create a variable in the makefile
+* @param const std::string name The name of the variable.
+* @param const std::string value The value of the variable.
+* @author Matrax
+* @version 1.0
+*/
 void MakeFile::createVariable(const std::string name, const std::string value)
 {
   if(name.empty() == true)
@@ -208,12 +233,19 @@ std::vector<std::filesystem::path> MakeFile::getSources(const std::string direct
 {
   std::vector<std::filesystem::path> sources;
 
-  if(File::exist(directory) == false)
+  if(ApplicationFile::exist(directory) == false)
     throw std::runtime_error("The directory doesn't exist !");
 
   for (std::filesystem::directory_entry file : std::filesystem::recursive_directory_iterator(directory))
   {
-    if(file.is_directory() == false) sources.push_back(file.path());
+    if(file.is_directory() == false)
+    {
+      std::string extension = ApplicationFile::getExtension(file.path());
+      if(extension == ".c" || extension == ".cpp" || extension == ".cc")
+      {
+        sources.push_back(file.path());
+      }
+    }
   }
 
   return sources;

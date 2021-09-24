@@ -12,7 +12,6 @@
 #include "../Commands/Command.hpp"
 #include "../Commands/CreateCommand.hpp"
 #include "../Commands/BuildCommand.hpp"
-#include "../Commands/MakeCommand.hpp"
 #include "../Commands/InfoCommand.hpp"
 
 /**

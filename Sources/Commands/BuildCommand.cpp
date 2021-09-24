@@ -6,7 +6,7 @@ BuildCommand::~BuildCommand() {}
 
 void BuildCommand::execute()
 {
-	if(File::exist("makeloader.json") == false)
+	if(ApplicationFile::exist("makeloader.json") == false)
 		throw std::runtime_error("[MakeLoader] You don't have a makeloader.json in your project !\n");
 
 	std::cout << "\n[MakeLoader] Building the makefile ..." << std::endl;

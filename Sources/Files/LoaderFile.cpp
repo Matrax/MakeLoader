@@ -1,11 +1,11 @@
 #include "../../Headers/Files/LoaderFile.hpp"
 
-LoaderFile::LoaderFile() : File("makeloader.json", true) {}
+LoaderFile::LoaderFile() : ApplicationFile("makeloader.json", true) {}
 
 LoaderFile::~LoaderFile() {}
 
 /**
-* This method generate the content of the file.
+* This method generate the content of the makeloader file the first time it is created.
 * @author Matrax
 * @version 1.0
 */

@@ -5,7 +5,7 @@
 #include <filesystem>
 
 //MakeLoader includes
-#include "File.hpp"
+#include "ApplicationFile.hpp"
 
 //Json includes
 #include "../../Includes/json.hpp"
@@ -15,7 +15,7 @@
 * @author Matrax
 * @version 1.0
 **/
-class LoaderFile : public File
+class LoaderFile : public ApplicationFile
 {
 
     public:

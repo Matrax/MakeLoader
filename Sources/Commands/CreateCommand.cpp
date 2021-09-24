@@ -8,43 +8,43 @@ void CreateCommand::execute()
 {
 	std::cout << "\n[MakeLoader] Creating project ..." << std::endl;
 
-	if(File::exist("Sources") == false)
+	if(ApplicationFile::exist("Sources") == false)
 	{
-		File::createDirectory("Sources");
+		ApplicationFile::createDirectory("Sources");
 		std::cout << "\n[MakeLoader] Sources folder created !" << std::endl;
 	}
 
-	if(File::exist("Headers") == false)
+	if(ApplicationFile::exist("Headers") == false)
 	{
-		File::createDirectory("Headers");
+		ApplicationFile::createDirectory("Headers");
 		std::cout << "\n[MakeLoader] Headers folder created !" << std::endl;
 	}
 
-	if(File::exist("Includes") == false)
+	if(ApplicationFile::exist("Includes") == false)
 	{
-		File::createDirectory("Includes");
+		ApplicationFile::createDirectory("Includes");
 		std::cout << "\n[MakeLoader] Includes folder created !" << std::endl;
 	}
 
-	if(File::exist("Builds") == false)
+	if(ApplicationFile::exist("Builds") == false)
 	{
-		File::createDirectory("Builds");
+		ApplicationFile::createDirectory("Builds");
 		std::cout << "\n[MakeLoader] Builds folder created !" << std::endl;
 	}
 
-	if(File::exist("Objects") == false)
+	if(ApplicationFile::exist("Objects") == false)
 	{
-		File::createDirectory("Objects");
+		ApplicationFile::createDirectory("Objects");
 		std::cout << "\n[MakeLoader] Objects folder created !" << std::endl;
 	}
 
-	if(File::exist("makeloader.json") == false)
+	if(ApplicationFile::exist("makeloader.json") == false)
 	{
 		Application::getInstance().getLoaderfile().create();
 		std::cout << "[MakeLoader] Makeloader.json created !" << std::endl;
 	}
 
-	if(File::exist("makefile") == false)
+	if(ApplicationFile::exist("makefile") == false)
 	{
 		Application::getInstance().getMakefile().create();
 		std::cout << "[MakeLoader] Makefile created !" << std::endl;

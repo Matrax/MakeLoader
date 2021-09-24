@@ -8,14 +8,14 @@
 #include <stdexcept>
 
 /**
-* This abstract class represent a file.
+* This abstract class represent a file used by MakeLoader.
 * It was developped to have an easier management of files
 * with the MakeLoader application. Every File classes need to
-* redefine the methods generate.
+* redefine the methods generate, called every time the file is created the first time.
 * @author Matrax
 * @version 1.0
 **/
-class File
+class ApplicationFile
 {
 
     private:
@@ -28,17 +28,18 @@ class File
     public:
 
         //Constructors and destructor
-        File() = delete;
-        File(std::string path, bool loadContent);
-        File(const File &) = delete;
-        virtual ~File();
+        ApplicationFile() = delete;
+        ApplicationFile(std::string path, bool loaded);
+        ApplicationFile(const ApplicationFile &) = delete;
+        virtual ~ApplicationFile();
 
         //Operators
-		    File & operator=(const File &) = delete;
+		    ApplicationFile & operator=(const ApplicationFile &) = delete;
 
         //Static functions
         static bool exist(const std::string path);
         static void createDirectory(const std::string name);
+        static std::string getExtension(const std::filesystem::path path);
 
         //Virtual methods
         virtual void onCreate() = 0;
