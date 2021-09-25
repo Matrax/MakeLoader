@@ -11,31 +11,31 @@ void CreateCommand::execute()
 	if(ApplicationFile::exist("Sources") == false)
 	{
 		ApplicationFile::createDirectory("Sources");
-		std::cout << "\n[MakeLoader] Sources folder created !" << std::endl;
+		std::cout << "[MakeLoader] Sources folder created !" << std::endl;
 	}
 
 	if(ApplicationFile::exist("Headers") == false)
 	{
 		ApplicationFile::createDirectory("Headers");
-		std::cout << "\n[MakeLoader] Headers folder created !" << std::endl;
+		std::cout << "[MakeLoader] Headers folder created !" << std::endl;
 	}
 
 	if(ApplicationFile::exist("Includes") == false)
 	{
 		ApplicationFile::createDirectory("Includes");
-		std::cout << "\n[MakeLoader] Includes folder created !" << std::endl;
+		std::cout << "[MakeLoader] Includes folder created !" << std::endl;
 	}
 
 	if(ApplicationFile::exist("Builds") == false)
 	{
 		ApplicationFile::createDirectory("Builds");
-		std::cout << "\n[MakeLoader] Builds folder created !" << std::endl;
+		std::cout << "[MakeLoader] Builds folder created !" << std::endl;
 	}
 
 	if(ApplicationFile::exist("Objects") == false)
 	{
 		ApplicationFile::createDirectory("Objects");
-		std::cout << "\n[MakeLoader] Objects folder created !" << std::endl;
+		std::cout << "[MakeLoader] Objects folder created !" << std::endl;
 	}
 
 	if(ApplicationFile::exist("makeloader.json") == false)
