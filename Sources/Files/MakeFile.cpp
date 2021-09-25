@@ -33,14 +33,15 @@ void MakeFile::onCreate()
 void MakeFile::createHeader(nlohmann::json configurations)
 {
   this->addContent("#================Header===============\n\n");
-  this->createVariable("COMPILER", configurations["COMPILER"]);
-  this->createVariable("ARCHIVER", configurations["ARCHIVER"]);
-  this->createVariable("VERSION", configurations["VERSION"]);
-  this->createVariable("COMPILER_OUTPUT", configurations["COMPILER_OUTPUT"]);
-  this->createVariable("ARCHIVER_OUTPUT", configurations["ARCHIVER_OUTPUT"]);
-  this->createVariable("LINKER_FLAGS", configurations["LINKER_FLAGS"]);
-  this->createVariable("COMPILER_FLAGS", configurations["COMPILER_FLAGS"]);
-  this->createVariable("LIBS", configurations["LIBS"]);
+  this->createVariable("COMPILER_COMMAND", configurations["COMPILER"]["COMPILER_COMMAND"]);
+  this->createVariable("COMPILER_FLAGS", configurations["COMPILER"]["COMPILER_FLAGS"]);
+  this->createVariable("LINKER_OUTPUT", configurations["COMPILER"]["LINKER_OUTPUT"]);
+  this->createVariable("LINKER_FLAGS", configurations["COMPILER"]["LINKER_FLAGS"]);
+  this->createVariable("VERSION", configurations["COMPILER"]["VERSION"]);
+  this->createVariable("LIBS", configurations["COMPILER"]["LIBS"]);
+  this->createVariable("ARCHIVER_COMMAND", configurations["ARCHIVER"]["ARCHIVER_COMMAND"]);
+  this->createVariable("ARCHIVER_ARGUMENTS", configurations["ARCHIVER"]["ARCHIVER_ARGUMENTS"]);
+  this->createVariable("ARCHIVER_OUTPUT", configurations["ARCHIVER"]["ARCHIVER_OUTPUT"]);
   this->addContent("\n");
 }
 
@@ -94,7 +95,7 @@ void MakeFile::createStaticLibrary(std::vector<std::filesystem::path> sources)
     this->addContent(".o");
   }
 
-  this->addContent("\n\t$(ARCHIVER) rcs Builds/$(ARCHIVER_OUTPUT)");
+  this->addContent("\n\t$(ARCHIVER_COMMAND) $(ARCHIVER_ARGUMENTS) Builds/$(ARCHIVER_OUTPUT)");
 
   for(std::vector<std::filesystem::path>::iterator path = sources.begin(); path != sources.end(); path++)
   {
@@ -128,7 +129,7 @@ void MakeFile::createExecutable(std::vector<std::filesystem::path> sources)
     this->addContent(".o");
   }
 
-  this->addContent("\n\t$(COMPILER) $(LINKER_FLAGS)");
+  this->addContent("\n\t$(COMPILER_COMMAND) $(LINKER_FLAGS)");
 
   for(std::vector<std::filesystem::path>::iterator path = sources.begin(); path != sources.end(); path++)
   {
@@ -138,7 +139,7 @@ void MakeFile::createExecutable(std::vector<std::filesystem::path> sources)
     this->addContent(".o");
   }
 
-  this->addContent(" $(LIBS) -o Builds/$(COMPILER_OUTPUT)\n\n");
+  this->addContent(" $(LIBS) -o Builds/$(LINKER_OUTPUT)\n\n");
 }
 
 /**
@@ -161,7 +162,7 @@ void MakeFile::createTarget(const std::string path, const std::string objectFile
   this->addContent(".o : ");
   this->addContent(path);
   this->addContent(".cpp");
-  this->addContent("\n\t$(COMPILER) -c ");
+  this->addContent("\n\t$(COMPILER_COMMAND) -c ");
   this->addContent(path);
   this->addContent(".cpp $(VERSION) $(COMPILER_FLAGS) -o Objects/");
   this->addContent(objectFile);

@@ -1,12 +1,14 @@
 # MakeLoader 1.0 (BETA)
 
 ## Description
-MakeLoader is a program that generate for you all the C/C++ project folders and the makefile with GCC or G++ compilation associated with it using
+MakeLoader is a program that generate for you all the C/C++ project folders and the makefile associated with it using
 all the sources files in the "Sources" directory.
+<br/><br/>
+MakeLoader is designed to work only with GCC or G++ for the compilation and the "ar" program for your static libraries. You can use these tools
+on Linux and Windows with Mingw-w64.
 <br/><br/>
 MakeLoader will generate with the "create" command the makeloader.json file that contains all options used in the makefile
 and all the directories for your project.
-<br/><br/>
 
 ## How it works
 Configure all the compiler options in the makeloader.json,
