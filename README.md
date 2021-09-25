@@ -1,4 +1,4 @@
-# MakeLoader 1.0 (BETA)
+# MakeLoader 1.0
 
 ## Description
 MakeLoader is a program that generate for you all the C/C++ project folders and the makefile associated with it using
