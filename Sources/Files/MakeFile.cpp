@@ -69,8 +69,9 @@ void MakeFile::createBody()
 
   for(std::vector<std::filesystem::path>::iterator path = sources.begin(); path != sources.end(); path++)
   {
+    const std::string extension = path->extension();
     path->replace_extension("");
-    this->createTarget(path->string(), path->filename().string());
+    this->createTarget(path->string(), extension, path->filename().string());
   }
 }
 
@@ -149,7 +150,7 @@ void MakeFile::createExecutable(std::vector<std::filesystem::path> sources)
 * @author Matrax
 * @version 1.0
 */
-void MakeFile::createTarget(const std::string path, const std::string objectFile)
+void MakeFile::createTarget(const std::string path, const std::string extension, const std::string objectFile)
 {
   if(path.empty() == true)
     throw std::runtime_error("No path specified for the target !");
@@ -161,10 +162,11 @@ void MakeFile::createTarget(const std::string path, const std::string objectFile
   this->addContent(objectFile);
   this->addContent(".o : ");
   this->addContent(path);
-  this->addContent(".cpp");
+  this->addContent(extension);
   this->addContent("\n\t$(COMPILER_COMMAND) -c ");
   this->addContent(path);
-  this->addContent(".cpp $(VERSION) $(COMPILER_FLAGS) -o Objects/");
+  this->addContent(extension);
+  this->addContent(" $(VERSION) $(COMPILER_FLAGS) -o Objects/");
   this->addContent(objectFile);
   this->addContent(".o\n");
 }
