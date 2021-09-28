@@ -55,7 +55,7 @@ void MakeFile::createBody()
   std::vector<std::filesystem::path> sources = this->getSources();
 
   if(sources.size() <= 0)
-    throw std::runtime_error("You have no sources to build !");
+    throw std::runtime_error("You have no sources to build the makefile !");
 
   this->addContent("#================Commands===============\n");
   this->createCommand("all", "Application", "");
@@ -72,6 +72,7 @@ void MakeFile::createBody()
     const std::string extension = path->extension();
     path->replace_extension("");
     this->createTarget(path->string(), extension, path->filename().string());
+    std::cout << "[MakeLoader] Target " << path->string() << " added !" << std::endl;
   }
 }
 
@@ -84,7 +85,7 @@ void MakeFile::createBody()
 void MakeFile::createStaticLibrary(std::vector<std::filesystem::path> sources)
 {
   if(sources.size() <= 0)
-    throw std::runtime_error("You have no sources to create the library command line !");
+    throw std::runtime_error("You have no sources to create the static library command line !");
 
   this->addContent("\nStaticLibrary:");
 

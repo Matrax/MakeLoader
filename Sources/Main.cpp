@@ -15,7 +15,7 @@ int main(int argc, char * argv[])
 	try {
 		application.start(argc, argv);
 	} catch(const std::runtime_error & exception) {
-		std::cerr << "\n[MakeLoader] " << exception.what() << "\n" << std::endl;
+		std::cerr << "\n[MakeLoader] " << exception.what() << std::endl;
 	}
 
 	return 0;

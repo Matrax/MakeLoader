@@ -6,8 +6,6 @@ CreateCommand::~CreateCommand() {}
 
 void CreateCommand::execute()
 {
-	std::cout << "\n[MakeLoader] Creating project ..." << std::endl;
-
 	if(ApplicationFile::exist("Sources") == false)
 	{
 		ApplicationFile::createDirectory("Sources");
@@ -49,6 +47,4 @@ void CreateCommand::execute()
 		Application::getInstance().getMakefile().create();
 		std::cout << "[MakeLoader] Makefile created !" << std::endl;
 	}
-
-	std::cout << "[MakeLoader] Project OK !\n" << std::endl;
 }
